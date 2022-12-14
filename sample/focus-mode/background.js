@@ -20,4 +20,5 @@ chrome.action.onClicked.addListener(async (tab) => {
     await chrome.action.setBadgeText({
       tabId: tab.id,
       text: nextState,
-    }); }
+    }); 
+};

@@ -17,9 +17,10 @@ function verify_registration_page(){
 
 function register(){
     //load class list
-    const classes = ["00001"];
+    const classes = ["13220", "13180"];
     for(var i = 0; i<classes.length; i++){
         add_class(classes[i]);
+        console.log("Tried to add course "+classes[i]);
     }
 }
 
@@ -42,8 +43,34 @@ function add_class(unique_num){
     const submit_button = document.getElementsByName("s_submit");
     assert_equals(submit_button.length, 1);
     submit_button[0].click();
-    //get response
-    //store response
+    //get response, see if add was successful or if there is waitlist
+    // window.onload = read_add_response();
+    window.onload = () => {
+        var response = read_add_response();
+        if(!response["succcess"] && response["waitlist"]){
+            console.log("We can waitlist in class "+unique_num);
+        }
+        // return response["success"];
+    }
+}
+
+function read_add_response(){
+    //get response message
+    const message = document.getElementById("n_message");
+    assert_not_equals(message, null);
+    const message_text = message.innerText;
+    //TODO change to chrome.storage
+    console.log(message_text);
+    //check if error class exists, if it doesn't, we added class successfully
+    const err = document.getElementsByClassName("error");
+    if(err == null || err.length == 0){
+        console.log("Added class!");
+        return {"success": true};
+    }
+    //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
+    const waitlist = document.getElementById("s_waitlist_unique");
+    console.log("Failed to add class!");
+    return {"success": false, "waitlist": waitlist != null};
 }
 
 //checks if two variables are equal, throws error if they aren't

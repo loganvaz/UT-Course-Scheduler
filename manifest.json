@@ -13,6 +13,12 @@
           "matches": [
             "https://utdirect.utexas.edu/registration/chooseSemester.WBX"
           ]
+        },
+        {
+          "js": ["scripts/registration.js"],
+          "matches": [
+            "https://utdirect.utexas.edu/registration/registration.WBX"
+          ]
         }
     ]
   }

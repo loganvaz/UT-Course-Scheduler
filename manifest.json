@@ -20,5 +20,8 @@
             "https://utdirect.utexas.edu/registration/registration.WBX"
           ]
         }
+    ],
+    "permissions": [
+      "storage"
     ]
   }

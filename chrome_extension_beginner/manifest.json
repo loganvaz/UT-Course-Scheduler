@@ -1,0 +1,26 @@
+
+{
+    "manifest_version": 3,
+    "name": "basicExtension",
+    "description": "Add a custom background to google.com",
+    "version": "1.0",
+    "icons" :{
+        "16": "/images/mario_16.png",
+        "48": "/images/mario_48.png",
+        "128": "/images/mario_128.png"
+
+    }, 
+    "action": {
+        "default_icon": {
+            "16": "/images/frog_16.png",
+            "48": "/images/frog_48.png",
+            "128": "/images/frog_128.png"
+        }
+    },
+    "content_scripts": [{
+        "matches":["https://www.google.com/*"],
+        "css": ["main.css"]
+    }]
+    
+
+}

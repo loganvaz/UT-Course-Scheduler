@@ -17,7 +17,7 @@
         {
           "js": ["scripts/registration.js"],
           "matches": [
-            "https://utdirect.utexas.edu/registration/registration.WBX"
+            "https://utdirect.utexas.edu/registration/registration.WBX*"
           ]
         }
     ],

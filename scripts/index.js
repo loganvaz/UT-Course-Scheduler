@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //TODO maybe add this to background script instead
     chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
         //load class queue as copy of saved requested classes
-    const class_queue = ["13220", "13180"];
+    const class_queue = ["13170", "13180"];
     // chrome.storage.session.setAccessLevel({"accessLevel": "TRUSTED_AND_UNTRUSTED_CONTEXTS"});
     chrome.storage.session.set({ "class_queue": class_queue }).then(() => {
         //click the "submit" button to enter into registration section

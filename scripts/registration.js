@@ -1,21 +1,12 @@
-window.addEventListener ("load", verify_registration_page, false);
-
-//make sure we're on the registration page after clicking submit semester button
-function verify_registration_page(){
-    const page_title_div = document.getElementById("pgTitle");
-    if(page_title_div == null){
-        throw new Error("Clicked submit but failed to load into valid regsitration page!");
-    }
-    //verify that the page title div only has one child element which is of type h1
-    assert_equals(page_title_div.childNodes.length, 1);
-    assert_equals(page_title_div.childNodes.item(0).textContent.includes("Registration"), true);
-    // TODO maybe verify that the URL is https://utdirect.utexas.edu/registration/registration.WBX instead? 
-
-    console.log("I should now be in the registration page, having clicked the semester selector!");
-    register();
-}
+window.addEventListener ("load", register, false);
 
 function register(){
+    //read the state of the last class that was added, weird design pattern due to pressing submit restarting the script
+    const response = read_add_response();
+    if(!("no_class" in response)){
+        console.log(response["response"]);
+    }
+
     //load class queue and 'pop' front element
     chrome.storage.session.get(["class_queue"]).then((result) => {
         const class_queue = result.class_queue;
@@ -34,16 +25,11 @@ function register(){
             add_class(cur_class);
         });
     });
-    // for(var i = 0; i<classes.length; i++){
-    //     add_class(classes[i]);
-    //     console.log("Tried to add course "+classes[i]);
-    // }
 }
 
 function add_class(unique_num){
     assert_equals(unique_num.length, 5);
     //select add radio button
-    // console.error(document.textContent);
     const add_radio = document.getElementById("ds_request_STADD");
     if(add_radio == null){
         console.error("add_radio is null!");
@@ -58,28 +44,7 @@ function add_class(unique_num){
     //press submit
     const submit_button = document.getElementsByName("s_submit");
     assert_equals(submit_button.length, 1);
-    submit_button[0].click();
-    // throw new Error("Done clicking, should be here!!");
-    //get response, see if add was successful or if there is waitlist    
-    // console.log("waiting...")
-    // setTimeout(read_add_response, 5000);
-    // console.log("done waiting!");
-        // var response = read_add_response();
-        // if(!response["succcess"] && response["waitlist"]){
-        //     console.log("We can waitlist in class "+unique_num);
-        // }
-
-    read_add_response();
-    //return to registration page
-    // chrome.tabs.create(
-    //     {
-    //         "url": "https://utdirect.utexas.edu/registration/registration.WBX"
-    //     }
-    // );
-    window.open("https://utdirect.utexas.edu/registration/registration.WBX");
-    //window.close();
-    // window.location.replace("https://utdirect.utexas.edu/registration/registration.WBX");
-    
+    submit_button[0].click();    
 }
 
 function read_add_response(){
@@ -87,18 +52,20 @@ function read_add_response(){
     const message = document.getElementById("n_message");
     assert_not_equals(message, null);
     const message_text = message.innerText;
-    //TODO change to chrome.storage
-    console.log(message_text);
+    if(message_text.includes("Please select a registration action.")){
+        //haven't added any classes yet
+        return {"no_class":true};
+    }
     //check if error class exists, if it doesn't, we added class successfully
     const err = document.getElementsByClassName("error");
     if(err == null || err.length == 0){
         console.log("Added class!");
-        return {"success": true};
+        return {"success": true, "response": message_text};
     }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
     const waitlist = document.getElementById("s_waitlist_unique");
     console.log("Failed to add class!");
-    return {"success": false, "waitlist": waitlist != null};
+    return {"success": false, "waitlist": waitlist != null, "response": message_text};
 }
 
 //checks if two variables are equal, throws error if they aren't

@@ -5,6 +5,18 @@ function register(){
     const response = read_add_response();
     if(!("no_class" in response)){
         console.log(response["response"]);
+        if("waitlist" in response && response["waitlist"]){
+            //TODO check if we want to waitlist this class
+            const waitlist = document.getElementById("s_waitlist_unique");
+            assert_not_equals(waitlist, null);
+            //s_waitlist_swap_unique use to select class to swap if added to waitlist
+            waitlist.click();
+            //press submit
+            const submit_button = document.getElementsByName("s_submit");
+            assert_equals(submit_button.length, 1);
+            submit_button[0].click();
+            console.log("Added to waitlist!");
+        }
     }
 
     //load class queue and 'pop' front element

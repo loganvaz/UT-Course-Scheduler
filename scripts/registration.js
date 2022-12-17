@@ -7,7 +7,7 @@ function register(){
         console.log(response["response"]);
         if("waitlist" in response && response["waitlist"]){
             //TODO check if we want to waitlist this class
-            const waitlist = document.getElementById("s_waitlist_unique");
+            const waitlist = document.getElementById("s_request_STAWL");
             assert_not_equals(waitlist, null);
             //s_waitlist_swap_unique use to select class to swap if added to waitlist
             waitlist.click();
@@ -23,7 +23,6 @@ function register(){
     chrome.storage.session.get(["class_queue"]).then((result) => {
         const class_queue = result.class_queue;
         if(class_queue == null || class_queue.length == 0){
-            console.log("removing class_queue\n");
             chrome.storage.session.remove("class_queue");
             return;
         }
@@ -75,7 +74,7 @@ function read_add_response(){
         return {"success": true, "response": message_text};
     }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
-    const waitlist = document.getElementById("s_waitlist_unique");
+    const waitlist = document.getElementById("s_request_STAWL");
     console.log("Failed to add class!");
     return {"success": false, "waitlist": waitlist != null, "response": message_text};
 }

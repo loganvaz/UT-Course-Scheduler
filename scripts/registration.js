@@ -16,6 +16,7 @@ function register(){
             assert_equals(submit_button.length, 1);
             submit_button[0].click();
             console.log("Added to waitlist!");
+            return;
         }
     }
 

@@ -1,0 +1,27 @@
+{
+    "manifest_version": 3,
+    "name": "UT Course Scheduler",
+    "description": "Automatically enroll in your selected courses at your registration time for UT Austin!",
+    "version": "0.0",
+    "action": {
+      "default_popup": "htmls/index.html",
+      "default_icon": "images/Robot_Scheduling_DALLE.png"
+    },
+    "content_scripts": [
+        {
+          "js": ["scripts/load_registration.js"],
+          "matches": [
+            "https://utdirect.utexas.edu/registration/chooseSemester.WBX"
+          ]
+        },
+        {
+          "js": ["scripts/registration.js"],
+          "matches": [
+            "https://utdirect.utexas.edu/registration/registration.WBX*"
+          ]
+        }
+    ],
+    "permissions": [
+      "storage"
+    ]
+  }

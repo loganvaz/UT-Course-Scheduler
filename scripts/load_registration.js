@@ -1,26 +1,12 @@
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+// import { assert_equals, assert_not_equals } from "./helpers";
+window.onload = click_registration();
 
-window.onload = () => {
-    console.log("begin\n");
-    console.log("window loaded\n");
-    document.getElementById("sampleButton").click();
-    console.log("window done\n");
-}
-
-let runDriver = () => {
-    /* 
-    let {Builder} = require('selenium-webdriver');
-    let chrome = require('selenium-webdriver/chrome');
-
-    const service = new chrome.ServiceBuilder('/path/to/chromedriver');
-    const driver = new Builder().forBrowser('chrome').setChromeService(service).build();
-    */
-
-    //const webdriver = require('selenium-webdriver');
-    //const chrome = require('selenium-webdriver/chrome');
-
-    //let driver = new Builder().forBrowser('chrome').build();
-
-    
-    console.log("driver hit 2\n");
+function click_registration(){
+    //returns node list of objects with matching name
+    const submit_button = document.getElementsByName("submit"); 
+    if(submit_button == null || submit_button.length != 1){
+        throw new Error("Uh oh...looks like I ran on the wrong page or there is some weird formatting. Try again later :)? Number of submit buttons is "+submit_button.length);
+    }
+    submit_button[0].click();
+    //TODO: add waiting logic to make sure the URL we're redirected to is loaded
 }

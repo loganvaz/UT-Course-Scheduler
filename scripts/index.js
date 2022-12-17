@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
     //TODO maybe add this to background script instead
     chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
         //load class queue as copy of saved requested classes
-    const class_queue = ["51895"];
+    const class_queue = ["13190", "13180","13210"];
     //read list/hashmap of course codes that we want to waitlist
     // chrome.storage.session.setAccessLevel({"accessLevel": "TRUSTED_AND_UNTRUSTED_CONTEXTS"});
     chrome.storage.session.set({ "class_queue": class_queue }).then(() => {

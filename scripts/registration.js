@@ -15,7 +15,9 @@ function register(){
             const submit_button = document.getElementsByName("s_submit");
             assert_equals(submit_button.length, 1);
             submit_button[0].click();
-            console.log("Added to waitlist!");
+            // console.log("Added to waitlist!");
+            // register(false);
+            //window.location.href = "https://utdirect.utexas.edu/registration/registration.WBX";
             return;
         }
     }

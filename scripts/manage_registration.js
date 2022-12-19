@@ -9,6 +9,9 @@ function set_displayed_time(date_init){
     var now = new Date(date_init);
     now.setMinutes(now.getMinutes()-now.getTimezoneOffset());
     document.getElementById("registration_time").value = now.toISOString().slice(0, 16);
+    console.log("Now string: "+new Date(Date.now()).toISOString());
+    //TODO: enforce not allowing bad time to be entered or tell user invalid time was entered
+    document.getElementById("registration_time").min = new Date(Date.now()).toISOString().slice(0, 16);
 }
 
 function trigger_update() {

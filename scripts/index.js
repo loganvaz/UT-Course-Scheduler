@@ -13,16 +13,16 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
     //TODO add to management page
-    chrome.alarms.create("registration_alarm" , {
-        when: Date.now()+10000
-    });
+    // chrome.alarms.create("registration_alarm" , {
+    //     when: Date.now()+10000
+    // });
 });
 
 function open_manage_registration(){
     // throw new Error("Manage registration time!");
     chrome.tabs.create(
     {
-        "url": "htmls/registration.html"
+        "url": "htmls/manage_registration.html"
     }
     );
 }

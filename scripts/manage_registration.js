@@ -38,7 +38,8 @@ function mouseUpHandler() {
 
     
     list.parentNode.removeChild(list);
-    table.style.removeProperty('visibility');
+    table.style.removeProperty('display');
+    //table.style.removeProperty('visibility');
     drag_started = false;
     //list.innerHTML = "";
 
@@ -52,6 +53,8 @@ var dragging_row_idx;
 var x = 0;
 var y = 0;
 var placeholder;
+var table_bounding_rect;
+var header_size;
 
 function swap(nodeA, nodeB) {
     const pA = nodeA.parentNode;
@@ -84,8 +87,22 @@ function mouseMoveHandler(e) {
     }
 
     dragging_el.style.position = 'absolute';
-    dragging_el.style.top = `${dragging_el.offsetTop + e.clientY -y}px`;
-    dragging_el.style.left = `${dragging_el.offsetLeft + e.clientX - x}px`;
+    
+    //get table position
+
+    let table = document.getElementById("course-table");
+    let y_min = header_size;//list.getBoundingClientRect().top;
+
+    let y_max = table_bounding_rect.bottom;//list.getBoundingClientRect().bottom;
+
+    let y_new =dragging_el.offsetTop + e.clientY -y;
+    console.log("y min is " + y_min);
+    console.log("y max is " + y_max);
+    console.log("y cur is " + y_new);
+    y_new = (y_new < y_min) ? y_min : ((y_new > y_max )? y_max : y_new);
+
+    dragging_el.style.top = `${y_new}px`;
+    //dragging_el.style.left = `${dragging_el.offsetLeft + e.clientX }px`;
     dragging_el.classList.add("dragging");
 
     x = e.clientX;
@@ -120,7 +137,9 @@ function clone_table() {
     list.style.top = `${rect.top}px`;
 
     table.parentNode.insertBefore(list, table);
-    table.style.visibility = 'hidden';
+    //table.style.visibility = 'hidden';
+    
+
 
     //clone all elements of table
     //make a table w one row for each row in the original table -- makes easier to see while dragging
@@ -129,11 +148,14 @@ function clone_table() {
         const new_table = document.createElement('table');
         const newRow = document.createElement('tr');
 
+        new_table.style.width = `${width}px`;
+
         [].slice.call(row.children).forEach(function(cell) {
             const new_cell = cell.cloneNode(true);
             new_cell.style.width = `${parseInt(window.getComputedStyle(cell).width)}px`;
             new_cell.style.minWidth = new_cell.style.width;
             newRow.append(new_cell);
+           
         });
 
         new_table.appendChild(newRow);
@@ -142,6 +164,7 @@ function clone_table() {
 
         new_table.appendChild(newRow);
     });
+    table.style.display = 'none';
     
 
 }
@@ -155,6 +178,9 @@ function mouseDownHandler(e) {
 
     x = e.clientX;
     y = e.clientY;
+
+    table_bounding_rect = table.getBoundingClientRect();
+    header_size = document.getElementById("table_header").getBoundingClientRect().top;
 
    
 

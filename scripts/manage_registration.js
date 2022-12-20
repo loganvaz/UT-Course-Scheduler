@@ -17,6 +17,7 @@ function mouseUpHandler() {
     dragging_el.style.removeProperty('top');
     dragging_el.style.removeProperty('left');
     dragging_el.style.removeProperty('position');
+    dragging_el.classList.remove("dragging");
 
     document.removeEventListener("mousemove", mouseMoveHandler);
     document.removeEventListener("mouseup", mouseUpHandler);
@@ -85,6 +86,7 @@ function mouseMoveHandler(e) {
     dragging_el.style.position = 'absolute';
     dragging_el.style.top = `${dragging_el.offsetTop + e.clientY -y}px`;
     dragging_el.style.left = `${dragging_el.offsetLeft + e.clientX - x}px`;
+    dragging_el.classList.add("dragging");
 
     x = e.clientX;
     y = e.clientY;
@@ -129,7 +131,8 @@ function clone_table() {
 
         [].slice.call(row.children).forEach(function(cell) {
             const new_cell = cell.cloneNode(true);
-            new_cell.style.width =  `${parseInt(window.getComputedStyle(cell).width)}px`;
+            new_cell.style.width = `${parseInt(window.getComputedStyle(cell).width)}px`;
+            new_cell.style.minWidth = new_cell.style.width;
             newRow.append(new_cell);
         });
 

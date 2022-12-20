@@ -94,3 +94,8 @@ button[disabled] {
     cursor: pointer;
 }
   
+.dragging {
+    background: #fff;
+    border-top: 1px solid #ccc;
+    z-index: 999;
+}

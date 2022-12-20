@@ -89,16 +89,15 @@ function mouseMoveHandler(e) {
     dragging_el.style.position = 'absolute';
     
     //get table position
+    let row_size = dragging_el.getBoundingClientRect();
+    let y_min = header_size.top+header_size.height-row_size.height/2;//list.getBoundingClientRect().top;
 
-    let table = document.getElementById("course-table");
-    let y_min = header_size;//list.getBoundingClientRect().top;
-
-    let y_max = table_bounding_rect.bottom;//list.getBoundingClientRect().bottom;
+    let y_max = table_bounding_rect.bottom-row_size.height/2;//list.getBoundingClientRect().bottom;
 
     let y_new =dragging_el.offsetTop + e.clientY -y;
-    console.log("y min is " + y_min);
-    console.log("y max is " + y_max);
-    console.log("y cur is " + y_new);
+    // console.log("y min is " + y_min);
+    // console.log("y max is " + y_max);
+    // console.log("y cur is " + y_new);
     y_new = (y_new < y_min) ? y_min : ((y_new > y_max )? y_max : y_new);
 
     dragging_el.style.top = `${y_new}px`;
@@ -180,7 +179,7 @@ function mouseDownHandler(e) {
     y = e.clientY;
 
     table_bounding_rect = table.getBoundingClientRect();
-    header_size = document.getElementById("table_header").getBoundingClientRect().top;
+    header_size = document.getElementById("table_header").getBoundingClientRect();
 
    
 
@@ -227,13 +226,13 @@ function save_class(){
     const alternateCourses = document.getElementById("alternate-courses-input").value;
 
     //add row to course table
-    const courseTable = document.getElementById("course-table");
+    const courseTableBody = document.getElementById("course-table-body");
     var rowVal = document.getElementById("add_edit").value;
     const edit_request = rowVal != "add";
     if(edit_request){
-        courseTable.deleteRow(rowVal);
+        courseTableBody.deleteRow(rowVal);
     }
-    var row = courseTable.insertRow(edit_request ? rowVal : -1);
+    var row = courseTableBody.insertRow(edit_request ? rowVal : -1);
     row.addEventListener("dblclick", function(e){
         e.target.parentNode.classList.add("selected_row");
         edit_row(e.target);
@@ -277,6 +276,7 @@ function clear_popup(){
     for(let e of selected_row){
         e.classList.remove("selected_row");
     }
+    document.getElementById("registration-info").style.removeProperty("pointer-events");
     document.getElementById("course-popup").style.display = "none";
 
 }
@@ -287,7 +287,8 @@ function edit_row(cell){
     document.getElementById("course-code-input").value = row.cells[1].innerText;
     document.getElementById("waitlist-input").checked = row.cells[2].innerText == "true";
     document.getElementById("alternate-courses-input").value = row.cells[3].innerText;
-    document.getElementById("add_edit").value = row.rowIndex;
+    document.getElementById("add_edit").value = row.rowIndex-1;
+    document.getElementById("registration-info").style.pointerEvents = "none";
     document.getElementById("course-popup").style.display = "block";
 }
 

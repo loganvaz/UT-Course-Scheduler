@@ -1,9 +1,66 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <script src="../scripts/manage_registration.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/manage_registration.css">
+    </head>
 <body>
-    <script src="../scripts/manage_registration.js"></script>
     <title>Manage Registration</title>
+    <!-- ORIGINAL TABLE AND INPUT BASED ON CHATGPT RESPONSE -->
+    <div id="registration-info">
+        <!-- Table to hold the course information -->
+        <table id="course-table">
+            <!-- Table header -->
+            <thead>
+                <tr>
+                    <th>Course name</th>
+                    <th>Course code</th>
+                    <th>Waitlist</th>
+                    <th>Alternate Courses</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody id="course-table-body">
+            </tbody>
+            <!-- Table rows -->
+            <!-- <tr>
+            <td><input type="text" name="course-name"></td>
+            <td><input type="text" name="course-code"></td>
+            <td><input type="checkbox" name="waitlist"></td>
+            <td><input type="text" name="alternate-courses"></td>
+            <td><button type="button" class="remove-button">Remove</button></td>
+            </tr> -->
+        </table>
+        
+        <!-- Edit and submit buttons -->
+        <button type="button" id="edit-button" class="form-buttons">Edit</button>
+        <button type="button" id="submit-button" class="form-buttons" disabled>Submit</button>
+        <!-- Add row button -->
+        <button type="button" id="add-row-button" style="display:none;" class="form-buttons">Add Row</button>
+    </div>
 
+    <!-- Popup to add or edit course information -->
+    <div id="course-popup" style="display:none;">
+        <!-- Course Inputs -->
+        <label for="course-name-input">Course name (optional):</label><br>
+        <input type="text" id="course-name-input"><br>
+
+        <label for="course-code-input">Course code:</label><br>
+        <input type="text" id="course-code-input"><br>
+
+        <label for="waitlist-input">Waitlist:</label><br>
+        <input type="checkbox" id="waitlist-input"><br>
+
+        <label for="alternate-courses-input">Alternate courses (optional):</label><br>
+        <input type="text" id="alternate-courses-input"><br>
+
+        <button type="button" id="save-button" class="form-buttons">Save</button>
+        <input type="hidden" id="add_edit" value="add" class="form-buttons">
+        <button id="close-button">x</button>
+    </div>
+  
+    
+    <br/>
     <label for="registration_time">Enter your registration time (in current timezone):</label>
     <input type="datetime-local" id="registration_time" min="">
     <h5>P.S. Please don't get this wrong!</h5>

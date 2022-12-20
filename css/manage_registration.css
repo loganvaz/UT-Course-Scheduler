@@ -98,4 +98,6 @@ button[disabled] {
     background: #fff;
     border-top: 1px solid #ccc;
     z-index: 999;
+    user-select: none;
+    background-color: #ACCEF7;
 }

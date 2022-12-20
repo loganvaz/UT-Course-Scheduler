@@ -148,6 +148,8 @@ function clone_table() {
         const newRow = document.createElement('tr');
 
         new_table.style.width = `${width}px`;
+        console.log("background color for row "+row.rowIndex+": "+window.getComputedStyle(row).backgroundColor);
+        newRow.style.backgroundColor = window.getComputedStyle(row).backgroundColor;
 
         [].slice.call(row.children).forEach(function(cell) {
             const new_cell = cell.cloneNode(true);

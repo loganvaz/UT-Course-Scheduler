@@ -1,13 +1,19 @@
 /* ORIGINAL STYLESHEET BASED ON CHATGPT RESPONSE */
 /* Style for the table */
+h1 {
+    text-align: center;
+    padding-bottom: 10px;
+}
 
 #registration-info {
     margin: auto;
+    width: 50%;
+    text-align: center;
 }
 
 table {
     border-collapse: collapse;
-    width: 50%;
+    width: 100%;
 }
   
 /* Style for the table cells */
@@ -39,8 +45,10 @@ tr.selected_row {
     padding: 12px 20px;
     border: none;
     cursor: pointer;
-    /* width: 100%; */
+    /* width: 10%; */
+    width: 90px;
     margin-top: 10px;
+    text-align: center;
 }
 
 /* Style for the disabled submit button */
@@ -104,4 +112,8 @@ button[disabled] {
     z-index: 999;
     user-select: none;
     background-color: #ACCEF7;
+}
+
+.registration-time-section {
+    text-align: center;
 }

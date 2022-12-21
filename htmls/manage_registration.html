@@ -7,6 +7,7 @@
     </head>
 <body>
     <title>Manage Registration</title>
+    <h1>Manage Registration</h1>
     <!-- ORIGINAL TABLE AND INPUT BASED ON CHATGPT RESPONSE -->
     <div id="registration-info">
         <!-- Table to hold the course information -->
@@ -30,7 +31,6 @@
         <!-- Add row button -->
         <button type="button" id="add-row-button" style="display:none;" class="form-buttons">Add Class</button>
     </div>
-
     <!-- Popup to add or edit course information -->
     <div id="course-popup" style="display:none;">
         <!-- Course Inputs -->
@@ -50,12 +50,12 @@
         <input type="hidden" id="add-edit" value="add" class="form-buttons">
         <button id="close-button">x</button>
     </div>
-  
-    
     <br/>
-    <label for="registration-time">Enter your registration time (in current timezone):</label>
-    <input type="datetime-local" id="registration-time" min="">
-    <h5>P.S. Please don't get this wrong!</h5>
-    <button id="update-time">Update Registration Time</button>
+    <div class="registration-time-section">
+        <label for="registration-time">Enter your registration time (in current timezone):</label>
+        <input type="datetime-local" id="registration-time" min="">
+        <h5>P.S. Please don't get this wrong!</h5>
+        <button id="update-time">Update Registration Time</button>
+    </div>
 </body>
 </html>

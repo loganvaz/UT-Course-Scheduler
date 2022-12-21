@@ -26,11 +26,7 @@ function save_class(){
         courseTableBody.deleteRow(rowVal);
     }
     var row = courseTableBody.insertRow(edit_request ? rowVal : -1);
-    row.addEventListener("dblclick", function(e){
-        e.target.parentNode.classList.add("selected_row");
-        edit_row(e.target);
-    });
-    //insert all values
+
     var courseNameTable = row.insertCell(0);
     courseNameTable.innerHTML = courseName;
     var courseCodeTable = row.insertCell(1);
@@ -39,13 +35,27 @@ function save_class(){
     waitlistTable.innerHTML = waitlist;
     var alternateCoursesTable = row.insertCell(3);
     alternateCoursesTable.innerHTML = alternateCourses;
-    var removeButtonTable = row.insertCell(4);
-    var removeButton = document.createElement("button");
-    removeButton.innerText = "Remove";
-    removeButtonTable.appendChild(removeButton);
-    removeButton.onclick = function(e) {
-        document.getElementById("course-table").deleteRow(e.target.parentNode.parentNode.rowIndex);
+    var actionsTable = row.insertCell(4);
+    var flex_div = document.createElement("div");
+    flex_div.classList.add("action-cell");
+    actionsTable.appendChild(flex_div);
+    // actionsTable.classList.add("action-cell");
+    var editButton = document.createElement("input");
+    editButton.type = "image";
+    editButton.src = "../images/edit-pencil.svg";
+    editButton.onclick = function(e) {
+        e.target.parentNode.parentNode.parentNode.classList.add("selected_row");
+        edit_row(e.target.parentNode.parentNode);
     };
+    flex_div.appendChild(editButton);
+
+    var deleteButton = document.createElement("input");
+    deleteButton.type = "image";
+    deleteButton.src = "../images/trash.svg";
+    deleteButton.onclick = function(e) {
+        document.getElementById("course-table").deleteRow(e.target.parentNode.parentNode.parentNode.rowIndex);
+    };
+    flex_div.appendChild(deleteButton);
 
     make_draggable(row);
     clear_popup();

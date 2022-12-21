@@ -1,5 +1,5 @@
-/* ORIGINAL STYLESHEET BASED ON CHATGPT RESPONSE */
-/* Style for the table */
+/* ORIGINAL STYLESHEET FOR TABLE BASED ON CHATGPT RESPONSE */
+
 h1 {
     text-align: center;
     padding-bottom: 10px;
@@ -20,6 +20,11 @@ table {
 td {
     border: 1px solid #dddddd;
     text-align: center;
+}
+
+.action-cell {
+    display: flex;
+    justify-content: space-around;
 }
 
 /* Style for the table header cells */
@@ -78,7 +83,7 @@ button[disabled] {
 /* Style for the labels in the popup */
 #course-popup label {
     display: block;
-    margin-bottom: 5px;
+    /* margin-bottom: 5px; */
 }
 
 /* Style for the inputs in the popup */

@@ -2,6 +2,7 @@
 <html>
     <head>
         <script src="../scripts/manage_registration.js"></script>
+        <script src="../scripts/manage_registration_table.js"></script>
         <link rel="stylesheet" type="text/css" href="../css/manage_registration.css">
     </head>
 <body>
@@ -11,7 +12,7 @@
         <!-- Table to hold the course information -->
         <table id="course-table">
             <!-- Table header -->
-            <thead id = "table_header">
+            <thead id = "table-header">
                 <tr>
                     <th>Course name</th>
                     <th>Course code</th>
@@ -22,21 +23,12 @@
             </thead>
             <tbody id="course-table-body">
             </tbody>
-            <!-- Table rows -->
-            <!-- <tr>
-            <td><input type="text" name="course-name"></td>
-            <td><input type="text" name="course-code"></td>
-            <td><input type="checkbox" name="waitlist"></td>
-            <td><input type="text" name="alternate-courses"></td>
-            <td><button type="button" class="remove-button">Remove</button></td>
-            </tr> -->
         </table>
-        
         <!-- Edit and submit buttons -->
         <button type="button" id="edit-button" class="form-buttons">Edit</button>
         <button type="button" id="submit-button" class="form-buttons" disabled>Submit</button>
         <!-- Add row button -->
-        <button type="button" id="add-row-button" style="display:none;" class="form-buttons">Add Row</button>
+        <button type="button" id="add-row-button" style="display:none;" class="form-buttons">Add Class</button>
     </div>
 
     <!-- Popup to add or edit course information -->
@@ -55,15 +47,15 @@
         <input type="text" id="alternate-courses-input"><br>
 
         <button type="button" id="save-button" class="form-buttons">Save</button>
-        <input type="hidden" id="add_edit" value="add" class="form-buttons">
+        <input type="hidden" id="add-edit" value="add" class="form-buttons">
         <button id="close-button">x</button>
     </div>
   
     
     <br/>
-    <label for="registration_time">Enter your registration time (in current timezone):</label>
-    <input type="datetime-local" id="registration_time" min="">
+    <label for="registration-time">Enter your registration time (in current timezone):</label>
+    <input type="datetime-local" id="registration-time" min="">
     <h5>P.S. Please don't get this wrong!</h5>
-    <button id="update_time">Update Registration Time</button>
+    <button id="update-time">Update Registration Time</button>
 </body>
 </html>

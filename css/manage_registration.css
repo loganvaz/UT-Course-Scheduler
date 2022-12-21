@@ -1,6 +1,10 @@
 /* ORIGINAL STYLESHEET BASED ON CHATGPT RESPONSE */
 /* Style for the table */
 
+#registration-info {
+    margin: auto;
+}
+
 table {
     border-collapse: collapse;
     width: 50%;

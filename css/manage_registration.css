@@ -24,12 +24,13 @@ caption {
 }
 
 #title_component {
-    margin-left: 1vh;
+    margin-left: 3vh;
     position: relative;
     float: left;
     font-weight: bolder;
     font-size: larger;
     color: black;
+    text-align: left;
 }
 
 .longhorn_image_title {
@@ -58,18 +59,14 @@ caption {
 }
 
 #contain_add_row_button {
-    margin-right: 1vh;
-    align-items: right;
-    align-self: right;
-    float: right;
+    margin-right: 3vh;
 }
 
 
 /* Style for the add row button */
 #add-row-button {
-    border-top: 50%;
-    border-right: 2vh;
-    position: relative;
+
+ 
     float:right;
     text-align: right;
     border-radius: 1vh;
@@ -78,7 +75,6 @@ caption {
     font-weight:bolder;
     font-size: larger;
     cursor: pointer;
-    border-spacing: 0px;
     
 }
   

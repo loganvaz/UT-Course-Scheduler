@@ -11,9 +11,47 @@ h1 {
     text-align: center;
 }
 
+
 table {
     border-collapse: collapse;
     width: 100%;
+    border-radius: 1vh;
+}
+
+caption {
+    border-radius: 1vh;
+    background-color: #bf5700;
+}
+
+#title_component {
+    margin: 2vh;
+    position: relative;
+    float: left;
+    font-weight: bolder;
+    font-size: larger;
+    color: #EEEEEE;
+}
+
+.longhorn_image_title {
+    height: 5vh;
+    width: 50%;
+    margin: auto;
+    margin-top: auto;
+    position: relative;
+    top: 50%;
+}
+
+
+/* Style for the add row button */
+#add-row-button {
+    position: relative;
+    float:right;
+    margin: 2vh;
+    border-radius: 1vh;
+    border: none;
+    color: #bf5700;
+    font-weight:bolder;
+    cursor: pointer;
 }
   
 /* Style for the table cells */
@@ -32,6 +70,14 @@ th {
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
+}
+
+th:first-child {
+    border-radius: 1vh;
+}
+
+th:last-child {
+    border-radius: 1vh;
 }
   
 /* Style for the table rows */
@@ -54,6 +100,7 @@ tr.selected_row {
     width: 90px;
     margin-top: 10px;
     text-align: center;
+    border-radius: 1vh;
 }
 
 /* Style for the disabled submit button */
@@ -61,12 +108,6 @@ button[disabled] {
     background-color: #cccccc;
 }
 
-/* Style for the add row button */
-#add-row-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
 
 /* Style for the popup */
 #course-popup {

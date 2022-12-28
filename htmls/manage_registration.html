@@ -11,9 +11,16 @@
     <!-- ORIGINAL TABLE AND INPUT BASED ON CHATGPT RESPONSE -->
     <div id="registration-info">
         <!-- Table to hold the course information -->
-        <table id="course-table">
+        <table id="course-table" >
             <!-- Table header -->
+            <caption class = "course-table-caption">
+                <div id = "title_component" >Scheduled Courses</div>
+                <img src = "../images/Texas_Longhorns_logo.svg" class = "longhorn_image_title"/>
+                 <!-- Add row button -->
+                <button type="button" id="add-row-button" style="display:none;">Add Row</button>
+            </caption>
             <thead id = "table-header">
+
                 <tr>
                     <th>Registration Order</th>
                     <th>Course name</th>
@@ -29,8 +36,7 @@
         <!-- Edit and submit buttons -->
         <button type="button" id="edit-button" class="form-buttons">Edit</button>
         <button type="button" id="submit-button" class="form-buttons" disabled>Submit</button>
-        <!-- Add row button -->
-        <button type="button" id="add-row-button" style="display:none;" class="form-buttons">Add Class</button>
+       
     </div>
     <!-- Popup to add or edit course information -->
     <div id="course-popup" style="display:none;">

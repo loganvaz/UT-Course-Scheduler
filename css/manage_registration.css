@@ -37,25 +37,20 @@ caption {
     height: 5vh;
     width: 50%;
     margin: auto;
-    margin-top: auto;
     position: relative;
     top: 50%;
 }
 
 .flex-box  {
     display: flex;
-    /* justify-content: center; */
     align-items: center;
-    /* justify-items: center; */
 }
 
 .title_component {
-    margin-top: 1%;
-    margin-bottom: 1%;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
     flex-grow: 1;
     flex-basis: 0;
-    width: 33%;
-    max-width: 33%;
 }
 
 #contain_add_row_button {
@@ -64,9 +59,7 @@ caption {
 
 
 /* Style for the add row button */
-#add-row-button {
-
- 
+#add-row-button { 
     float:right;
     text-align: right;
     border-radius: 1vh;

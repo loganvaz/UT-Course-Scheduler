@@ -24,12 +24,12 @@ caption {
 }
 
 #title_component {
-    margin: 2vh;
+    margin-left: 1vh;
     position: relative;
     float: left;
     font-weight: bolder;
     font-size: larger;
-    color: #EEEEEE;
+    color: black;
 }
 
 .longhorn_image_title {
@@ -41,17 +41,45 @@ caption {
     top: 50%;
 }
 
+.flex-box  {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    /* justify-items: center; */
+}
+
+.title_component {
+    margin-top: 1%;
+    margin-bottom: 1%;
+    flex-grow: 1;
+    flex-basis: 0;
+    width: 33%;
+    max-width: 33%;
+}
+
+#contain_add_row_button {
+    margin-right: 1vh;
+    align-items: right;
+    align-self: right;
+    float: right;
+}
+
 
 /* Style for the add row button */
 #add-row-button {
+    border-top: 50%;
+    border-right: 2vh;
     position: relative;
     float:right;
-    margin: 2vh;
+    text-align: right;
     border-radius: 1vh;
     border: none;
-    color: #bf5700;
+    color: black;
     font-weight:bolder;
+    font-size: larger;
     cursor: pointer;
+    border-spacing: 0px;
+    
 }
   
 /* Style for the table cells */

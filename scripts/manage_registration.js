@@ -22,6 +22,7 @@ function setup_page(){
     const addRowButton = document.getElementById("add-row-button");
     addRowButton.addEventListener("click", function(){
         coursePopup.style.display = "block";
+        document.getElementById("registration-info").style.pointerEvents = "none";
     });
 
     // Get the course popup

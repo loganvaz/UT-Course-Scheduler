@@ -21,12 +21,31 @@ const course_waitlist_idx = 3;
 const alternate_course_idx = 4;
 const action_idx = 5;
 
+
+//when loaded, retreive alr saved courses
+document.addEventListener('DOMContentLoaded', function()  {
+
+    chrome.storage.sync.get(["saved_registration"], function(data) {
+        data["saved_registration"].forEach((instance) => {
+            add_row(instance["Course name"], instance["Course code"], instance["Waitlist"], instance["Alternate Courses"]);
+        })
+
+    });
+
+    document.getElementById("course-table").style.pointerEvents = "none";
+    
+});
+
 function save_class(){
     const courseName = document.getElementById("course-name-input").value;
     const courseCode = document.getElementById("course-code-input").value;
     const waitlist = document.getElementById("waitlist-input").checked;
     const alternateCourses = document.getElementById("alternate-courses-input").value;
 
+    add_row(courseName, courseCode, waitlist, alternateCourses);
+}
+
+function add_row(courseName, courseCode, waitlist, alternateCourses) {
     //add row to course table
     const courseTableBody = document.getElementById("course-table-body");
     var rowVal = document.getElementById("add-edit").value;
@@ -57,6 +76,7 @@ function save_class(){
     editButton.onclick = function(e) {
         e.target.parentNode.parentNode.parentNode.classList.add("selected_row");
         edit_row(e.target.parentNode.parentNode);
+        
     };
     flex_div.appendChild(editButton);
 

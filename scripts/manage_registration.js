@@ -1,22 +1,75 @@
+var table_titles;
+
 document.addEventListener('DOMContentLoaded', function()  {
     setup_page();
     chrome.storage.sync.get(["global_alarm"], function(data) {
         set_displayed_time(data.global_alarm == undefined ? Date.now() : data.global_alarm);
         trigger_update();
     });
+
+    table_titles = [];
+    [].slice.call(document.getElementById("table-header").rows[0].cells).forEach((cell) => {
+        table_titles.push(cell.innerText);
+    });
+
+    
 });
 
+
+
+function get_listed(has_cells) {
+    let list_of_cells = has_cells.cells;
+    var to_ret = {};
+    [].slice.call(list_of_cells).forEach((cell, idx) => {
+        console.log("cell inner text is " + cell.innerText);
+        console.log("key is " + table_titles[idx]);
+        if (table_titles[idx] != 'Actions')
+        {
+            to_ret[table_titles[idx]] = cell.innerText;
+        }
+        //to_ret.push(cell.innerText);
+    })
+
+    return to_ret;
+}
+
+function store_table() {
+    
+    var table_rows = document.getElementById("course-table-body").rows;
+    var saved_registration = [];
+    [].slice.call(table_rows).forEach((row) => {saved_registration.push(get_listed(row));});
+    console.log("saved registration "+saved_registration);
+    chrome.storage.sync.set({ "saved_registration": saved_registration }).then(() => {
+        console.log(saved_registration[0]);
+        console.log(saved_registration[0]["Registration Order"]);
+    });
+}
 function setup_page(){
     // Get the edit and submit buttons
     const editButton = document.getElementById("edit-button");
     editButton.addEventListener("click", function() {
         addRowButton.style.display = "inline-block";
         editButton.disabled = true;
+        //enable the submit button
+        document.getElementById("submit-button").disabled = false;
+
+        //allow in row editting
+        document.getElementById("course-table").style.removeProperty("pointer-events");
     });
     const submitButton = document.getElementById("submit-button");
     submitButton.addEventListener("click", function() {
         addRowButton.style.display = "none";
         submitButton.disabled = true;
+
+        //store the current table
+        store_table();
+
+        //enable the edit button
+        document.getElementById("edit-button").disabled = false;
+
+        //disable edit/delete in table
+        document.getElementById("course-table").style.pointerEvents = "none";
+
     });
     // Get the add row button
     const addRowButton = document.getElementById("add-row-button");

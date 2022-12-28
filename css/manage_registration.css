@@ -29,12 +29,12 @@ caption {
     float: left;
     font-weight: bolder;
     font-size: larger;
-    color: black;
+    color: white;
     text-align: left;
 }
 
 .longhorn_image_title {
-    height: 5vh;
+    height: 3vh;
     width: 50%;
     margin: auto;
     position: relative;
@@ -57,14 +57,14 @@ caption {
     margin-right: 3vh;
 }
 
-
 /* Style for the add row button */
 #add-row-button { 
     float:right;
     text-align: right;
     border-radius: 1vh;
     border: none;
-    color: black;
+    color: #bf5700;
+    background-color: white;
     font-weight:bolder;
     font-size: larger;
     cursor: pointer;
@@ -108,7 +108,7 @@ tr.selected_row {
 
 /* Style for the edit and submit buttons */
 .form-buttons {
-    background-color: #4CAF50;
+    background-color: #bf5700;
     color: white;
     padding: 12px 20px;
     border: none;

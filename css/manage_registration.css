@@ -152,6 +152,11 @@ button[disabled] {
     box-sizing: border-box;
 }
 
+.input-error {
+    color: red;
+    font-size: small;
+    display: none;
+}
 /* Style for the save button in the popup */
 #save_button {
     width: 100%;

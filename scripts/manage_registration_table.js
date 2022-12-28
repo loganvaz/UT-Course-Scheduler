@@ -42,7 +42,10 @@ function save_class(){
     const waitlist = document.getElementById("waitlist-input").checked;
     const alternateCourses = document.getElementById("alternate-courses-input").value;
 
-    add_row(courseName, courseCode, waitlist, alternateCourses);
+    //validate input
+    if(validate_input()){
+        add_row(courseName, courseCode, waitlist, alternateCourses);
+    }
 }
 
 function add_row(courseName, courseCode, waitlist, alternateCourses) {
@@ -93,6 +96,25 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
     reset_priority();
 }
 
+function validate_input(){
+    [].slice.call(document.getElementsByClassName("input-error")).forEach((error_text) => {
+        error_text.style.display = "none";
+    });
+
+    const course_code = document.getElementById("course-code-input");
+    var passed = true;
+    if(!/^\d{5}$/.test(course_code.value)){
+    document.getElementById("course-code-error").style.display = "block";
+       passed = false;
+    }
+    const alternate_courses = document.getElementById("alternate-courses-input").value;
+    if(!/^(\d{5}( *, *\d{5})*)?$/.test(alternate_courses)){
+        document.getElementById("alternate-courses-error").style.display = "block";
+        passed = false;
+    }
+    return passed;
+}
+
 function edit_row(cell){
     const row = cell.parentNode;
     document.getElementById("course-name-input").value = row.cells[course_name_idx].innerText;
@@ -115,6 +137,9 @@ function clear_popup(){
         e.classList.remove("selected_row");
     }
     document.getElementById("registration-info").style.removeProperty("pointer-events");
+    [].slice.call(document.getElementsByClassName("input-error")).forEach((error_text) => {
+        error_text.style.display = "none";
+    });
     document.getElementById("course-popup").style.display = "none";
 }
 
@@ -238,9 +263,7 @@ function mouseMoveHandler(e) {
     if (!drag_started) {
         drag_started = true;
         clone_table();
-
         dragging_el = [].slice.call(list.children)[dragging_row_idx];
-
         //create placeholder
         placeholder = document.createElement("div");
         placeholder.classList.add("placeholder");

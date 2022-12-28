@@ -17,7 +17,7 @@
                 <div class = "flex-box">
                     <div id = "title_component" class = "title_component" >Scheduled Courses</div>
                     <img src = "../images/Texas_Longhorns_logo.svg" class = "longhorn_image_title title_component"/>
-                    <div class = "title_component" id = "contain_add_row_button"><button type="button" id="add-row-button" style="display:none;">Add Row</button></div>
+                    <div class = "title_component" id = "contain_add_row_button"><button type="button" id="add-row-button" style="display:none;">Add Class</button></div>
                 </div>
             </caption>
             <thead id = "table-header">
@@ -47,9 +47,12 @@
 
         <label for="course-code-input">Course code:</label><br>
         <input type="text" id="course-code-input"><br>
+        <div id = "course-code-error" class = "input-error">Error: course code must be a 5 digit number</div>
 
         <label for="alternate-courses-input">Alternate courses (optional):</label><br>
         <input type="text" id="alternate-courses-input"><br>
+        <div id = "alternate-courses-error" class = "input-error">Error: each course code must be a 5 digit number seperated by commas (ex: 12345, 54321) </div>
+
 
         <label for="waitlist-input">Waitlist:</label><br>
         <input type="checkbox" id="waitlist-input"><br>

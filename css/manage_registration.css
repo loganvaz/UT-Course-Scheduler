@@ -189,18 +189,38 @@ button[disabled] {
     text-align: center;
     border-width: 1px;
     border-style: solid;
-    border-color: rgba(var(--orange), 0);
+    border-color: var(--orange);
     /* border-image: linear-gradient(to right, white, white, var(--orange), white, white) 20%; */
     border-radius: 2vh;
     width: 50%;
     margin: auto;
     margin-top: 10vh;
-    color: var(--orange);
+    color: black;
     background-image: linear-gradient(75deg, var(--orange),white, white, white, white,white,var(--orange));
+}
+
+#registration-time-title {
+    font-size: 1.6em;
+}
+
+#registration-time-label {
+    font-size: 1.25em;
 }
 
 #registration-time {
     border-radius: 1vh;
-    border: 2px solid var(--orange);
+    padding: 2px;
+    border: 1px solid black;
+    font-size: 1.5em;
+    margin-left: 0.5em;
 }
 
+#update-time {
+    margin-bottom: 0.8em;
+    border-radius: 1vh;
+    background-color: var(--orange);
+    color: white;
+    border-width: 0px;
+    padding: 1vh;
+    cursor: pointer;
+}

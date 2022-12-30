@@ -1,6 +1,6 @@
 /* SOME OF STYLESHEET FOR TABLE BASED ON CHATGPT RESPONSE */
 :root {
-    --orange: #bf5700;
+    --orange: rgb(191, 87, 0);
 }
 
 h1 {
@@ -23,7 +23,7 @@ table {
 
 caption {
     border-radius: 1vh;
-    background-color: var(--orange);
+    background-image: linear-gradient(90deg, var(--orange),white,var(--orange));
 }
 
 #title_component {
@@ -187,13 +187,16 @@ button[disabled] {
 
 .registration-time-section {
     text-align: center;
-    /* margin-top: 10vh; */
-    border: 2px solid var(--orange);
-    border-radius: 1vh;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(var(--orange), 0);
+    /* border-image: linear-gradient(to right, white, white, var(--orange), white, white) 20%; */
+    border-radius: 2vh;
     width: 50%;
     margin: auto;
-    color: white;
-    background-color: var(--orange);
+    margin-top: 10vh;
+    color: var(--orange);
+    background-image: linear-gradient(75deg, var(--orange),white, white, white, white,white,var(--orange));
 }
 
 #registration-time {

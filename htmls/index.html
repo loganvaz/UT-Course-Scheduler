@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html>
-<body>
-    <h1>UT Course Scheduler</h1>
-    <button id="manage_button">
-        Manage Registration
-    </button>
-    <p>
-        Created by <a href="maxweinreb.com">Max Weinreb</a> and <a href="https://github.com/loganvaz">Logan Vaz</a>. Enjoy!
-    </p>
+<head>
     <script src="../scripts/index.js">  </script>
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+</head>
+<body>
+    <h1 class="centered">UT Course Scheduler</h1>
+    <ul id="class-list"></ul>
+    <div id="registration-time-container" title="Go to Manage Registration to change">
+        <label for="registration-time">Registration Time</label>
+        <input type="datetime-local" id="registration-time" readonly>
+        <p id="no-registration-time" style="display: none;">No registration time currently set! Click Manage Registration to set it.</p>
+    </div>
+    <div id="manage-button-container" class="centered">
+        <button id="manage-button" class="submit-button-type"> Manage Registration </button>
+    </div>
+    <p class="centered"> Created by <a href="maxweinreb.com">Max Weinreb</a> and <a href="https://github.com/loganvaz">Logan Vaz</a> </p>
 </body>
 </html>

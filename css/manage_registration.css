@@ -1,7 +1,5 @@
 /* SOME OF STYLESHEET FOR TABLE BASED ON CHATGPT RESPONSE */
-:root {
-    --orange: rgb(191, 87, 0);
-}
+@import "global.css";
 
 h1 {
     text-align: center;
@@ -213,14 +211,4 @@ button[disabled] {
     border: 1px solid black;
     font-size: 1.5em;
     margin-left: 0.5em;
-}
-
-#update-time {
-    margin-bottom: 0.8em;
-    border-radius: 1vh;
-    background-color: var(--orange);
-    color: white;
-    border-width: 0px;
-    padding: 1vh;
-    cursor: pointer;
 }

@@ -1,0 +1,13 @@
+:root {
+    --orange: rgb(191, 87, 0);
+}
+
+.submit-button-type {
+    margin-bottom: 0.8em;
+    border-radius: 1vh;
+    background-color: var(--orange);
+    color: white;
+    border-width: 0px;
+    padding: 1vh;
+    cursor: pointer;
+}

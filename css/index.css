@@ -1,0 +1,39 @@
+@import "global.css";
+body {
+    min-width: 300px;
+}
+
+.centered {
+    text-align: center;
+}
+
+#manage-button-container {
+    margin:auto;
+}
+
+#manage-button {
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#registration-time-container {
+    margin: auto;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+/* credit https://www.w3schools.blog/input-type-date-remove-calendar-icon*/
+input[type="datetime-local"]::-webkit-inner-spin-button,
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+#registration-time {
+    pointer-events:none;
+    border-width: 2px;
+    border-radius: 1em;
+    padding: 0.25em;
+    padding-left: 0.75em;
+    margin-top: 0.5em;
+}

@@ -1,4 +1,7 @@
-/* ORIGINAL STYLESHEET FOR TABLE BASED ON CHATGPT RESPONSE */
+/* SOME OF STYLESHEET FOR TABLE BASED ON CHATGPT RESPONSE */
+:root {
+    --orange: #bf5700;
+}
 
 h1 {
     text-align: center;
@@ -20,7 +23,7 @@ table {
 
 caption {
     border-radius: 1vh;
-    background-color: #bf5700;
+    background-color: var(--orange);
 }
 
 #title_component {
@@ -63,7 +66,7 @@ caption {
     text-align: right;
     border-radius: 1vh;
     border: none;
-    color: #bf5700;
+    color: var(--orange);
     background-color: white;
     font-weight:bolder;
     font-size: larger;
@@ -108,7 +111,7 @@ tr.selected_row {
 
 /* Style for the edit and submit buttons */
 .form-buttons {
-    background-color: #bf5700;
+    background-color: var(--orange);
     color: white;
     padding: 12px 20px;
     border: none;
@@ -184,4 +187,17 @@ button[disabled] {
 
 .registration-time-section {
     text-align: center;
+    /* margin-top: 10vh; */
+    border: 2px solid var(--orange);
+    border-radius: 1vh;
+    width: 50%;
+    margin: auto;
+    color: white;
+    background-color: var(--orange);
 }
+
+#registration-time {
+    border-radius: 1vh;
+    border: 2px solid var(--orange);
+}
+

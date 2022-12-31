@@ -5,7 +5,68 @@ body {
 
 .centered {
     text-align: center;
+    margin: auto;
 }
+
+.sub-label {
+    font-size: 1.36em;
+}
+
+#scheduled-courses-title {
+    margin-top: 1em;
+}
+
+#class-list-div{
+    margin-top: 1em;
+}
+
+#class-list {
+    overflow-y: scroll;
+    max-height: 300px;
+    margin-bottom: .5em;
+    margin-top: .5em;
+}
+
+#class-list::-webkit-scrollbar {
+    background-color: transparent;
+    width: 10px;
+}
+
+#class-list::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    /* outline: 1px solid slategrey; */
+    border-radius: 10px;
+
+}
+
+.course_element {
+    /*border: 2px solid var(--orange);  */
+    /* background-image: linear-gradient(45deg,var(--lightorange), var(--orange), var(--lightorange)); */
+    background-image: radial-gradient(var(--lightorange), var(--orange));
+    color: white;
+    font-weight:bold;
+    width: 70%;
+    border-radius: 1em;
+    margin-bottom: .5em;
+    margin-top: .5em;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 1px;
+    padding-right: 1px;
+    overflow: scroll;
+    max-height: 1.5em;
+    min-height: 1.5em;
+ 
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+
+}
+
+.course_element::-webkit-scrollbar {
+    display: none;
+  }
 
 #manage-button-container {
     margin:auto;
@@ -19,6 +80,7 @@ body {
 #registration-time-container {
     margin: auto;
     margin-bottom: 1em;
+    width: 100vh;
     text-align: center;
 }
 
@@ -36,4 +98,5 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     padding: 0.25em;
     padding-left: 0.75em;
     margin-top: 0.5em;
+    
 }

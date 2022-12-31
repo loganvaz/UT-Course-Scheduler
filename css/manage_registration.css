@@ -183,7 +183,7 @@ button[disabled] {
     background-color: #ACCEF7;
 }
 
-.registration-time-section {
+ .registration-time-section {
     text-align: center;
     border-width: 1px;
     border-style: solid;
@@ -195,7 +195,7 @@ button[disabled] {
     margin-top: 10vh;
     color: black;
     background-image: linear-gradient(75deg, var(--orange),white, white, white, white,white,var(--orange));
-}
+} 
 
 #registration-time-title {
     font-size: 1.6em;

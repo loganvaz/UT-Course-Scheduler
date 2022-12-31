@@ -6,11 +6,14 @@
 </head>
 <body>
     <h1 class="centered">UT Course Scheduler</h1>
-    <ul id="class-list"></ul>
+
+    <div class = "centered sub-label" id = "scheduled-courses-title"><b>Scheduled Courses</b></div>
+    <div id="class-list-div" class = "centered" hidden> <i>No Classes Selected </i></div>
+    <div id = "class-list"></div>
     <div id="registration-time-container" title="Go to Manage Registration to change">
-        <label for="registration-time">Registration Time</label>
+        <label for="registration-time" class = "sub-label" id = "registration-time-label"><b>Registration Time</b></label><br/>
         <input type="datetime-local" id="registration-time" readonly>
-        <p id="no-registration-time" style="display: none;">No registration time currently set! Click Manage Registration to set it.</p>
+        <div id="no-registration-time" style="display: none;"><i>No registration time currently set</i></div>
     </div>
     <div id="manage-button-container" class="centered">
         <button id="manage-button" class="submit-button-type"> Manage Registration </button>

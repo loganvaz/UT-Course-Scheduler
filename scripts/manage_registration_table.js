@@ -58,8 +58,14 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
     }
     var row = courseTableBody.insertRow(edit_request ? rowVal : -1);
 
-    var priorityTable = row.insertCell(priority_idx);
-    priorityTable.innerHTML = "priority placeholder";
+    // var priority_cell = document.createElement("div");
+    // var draggable_icon = document.createElement("img");
+    // draggable_icon.src = "../images/drag.svg";
+    // priority_cell.appendChild(draggable_icon);
+    // priority_cell.innerText = priority_idx;
+    var priority_cell = row.insertCell(priority_idx);
+    priority_cell.classList.add("priority-cell");
+
     var courseNameTable = row.insertCell(course_name_idx);
     courseNameTable.innerHTML = courseName;
     var courseCodeTable = row.insertCell(course_code_idx);

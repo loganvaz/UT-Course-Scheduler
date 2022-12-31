@@ -83,6 +83,13 @@ td {
     justify-content: space-around;
 }
 
+.priority-cell {
+    background-image: url("../images/drag.svg");
+    background-size: 20px 20px;
+    background-position: left;
+    background-repeat: no-repeat;
+}
+
 /* Style for the table header cells */
 th {
     border: 1px solid #dddddd;

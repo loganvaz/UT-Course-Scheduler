@@ -148,7 +148,25 @@ button[disabled] {
 }
 
 #course-popup h2 {
+    position: relative;
     text-align: center;
+    margin: 0;
+}
+
+#close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: #cccccc;
+    font-size: 24px;
+    cursor: pointer;
+    margin-right: 0.5vh;
+    margin-top: 0.5vh;
+    border-radius: 3vh;
+    background-color: transparent;
 }
 
 /* Style for the labels in the popup */
@@ -185,21 +203,7 @@ button[disabled] {
     width: 100%;
 }
 
-#close-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 30px;
-    height: 30px;
-    border: none;
-    color: #cccccc;
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 0.5vh;
-    margin-top: 0.5vh;
-    border-radius: 3vh;
-    background-color: transparent;
-}
+
   
 .dragging {
     background: #fff;

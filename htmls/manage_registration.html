@@ -48,14 +48,14 @@
 
         <!-- Course Inputs -->
         <label for="course-name-input">Course name (optional):</label>
-        <input type="text" id="course-name-input">
+        <input type="text" id="course-name-input" placeholder="OS">
 
         <label for="course-code-input">Course code:</label>
-        <input type="text" id="course-code-input">
+        <input type="text" id="course-code-input" placeholder="96024">
         <div id = "course-code-error" class = "input-error">Error: course code must be a 5 digit number</div>
 
         <label for="alternate-courses-input">Alternate courses (optional):</label>
-        <input type="text" id="alternate-courses-input">
+        <input type="text" id="alternate-courses-input" placeholder="86750, 66005, 00110...">
         <div id = "alternate-courses-error" class = "input-error">Error: each course code must be a 5 digit number seperated by commas (ex: 12345, 54321) </div>
 
 
@@ -64,8 +64,10 @@
             <input type="checkbox" id="waitlist-input">
         </div>
         
-        
-        <button type="button" id="save-button" class="form-buttons">Save</button>
+        <div id="course-popup-buttons">
+            <button type="button" id="save-button" class="form-buttons">Save</button>
+            <button type="button" id="cancel-button" class="form-buttons">Cancel</button>
+        </div>
         <input type="hidden" id="add-edit" value="add" class="form-buttons">
     </div>
     <br/>

@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function(){
                 let newest = document.createElement("div");
                 newest.classList.add("centered");
                 newest.classList.add("course_element");
-                newest.innerText = instance["Course name"] + " (" + instance["Course code"] + ")";
+
+                newest.innerText = instance["Course name"].trim() == "" ?  instance["Course code"] : instance["Course name"] + " (" + instance["Course code"] + ")";
                 list_of_classes.appendChild(newest);
             })
         }

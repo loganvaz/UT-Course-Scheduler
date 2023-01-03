@@ -143,8 +143,8 @@ button[disabled] {
     background-color: white;
     padding: 20px;
     border: 1px solid #cccccc;
-    width: 50%;
-    margin-top: 2vh;
+    width: 30%;
+    margin-top: 10px;
     border-radius: 3vh;
 }
 
@@ -184,6 +184,9 @@ button[disabled] {
     box-sizing: border-box;
     margin-bottom: 2vh;
 }
+#course-popup input::placeholder {
+    color: lightgrey;
+}
 
 #checkbox-container {
     display: flex;
@@ -193,17 +196,26 @@ button[disabled] {
 #waitlist-input {
     width: auto;
     margin-top: 0;
+    accent-color: var(--orange);
 }
 .input-error {
     color: red;
     font-size: small;
     display: none;
 }
-/* Style for the save button in the popup */
-#save_button {
-    width: 100%;
+#course-popup-buttons {
+    text-align: center;
 }
 
+#course-popup-buttons button {
+    margin: 0.5vh;
+    border: 2px solid var(--orange);
+}
+
+#cancel-button {
+    background-color: transparent;
+    color: var(--orange);
+}
 
   
 .dragging {

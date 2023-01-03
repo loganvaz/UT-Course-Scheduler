@@ -95,6 +95,8 @@ function setup_page(){
     saveButton.addEventListener("click", save_class);
     const closeButton = document.getElementById("close-button");
     closeButton.addEventListener("click",  clear_popup);
+    const cancelButton = document.getElementById("cancel-button");
+    cancelButton.addEventListener("click", clear_popup);
 }
 
 

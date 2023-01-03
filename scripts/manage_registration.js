@@ -75,6 +75,15 @@ function setup_page(){
     const addRowButton = document.getElementById("add-row-button");
     addRowButton.addEventListener("click", function(){
         coursePopup.style.display = "block";
+        console.log("bottom of registration-info: "+document.getElementById("registration-info").getBoundingClientRect().bottom);
+        console.log("window height: "+window.innerHeight);
+        var percentTop = 100*document.getElementById("registration-info").getBoundingClientRect().bottom/window.innerHeight;
+        console.log("percent: "+percentTop)
+        coursePopup.style.top =(document.getElementById("submit-button").getBoundingClientRect().bottom+coursePopup.getBoundingClientRect().height/2)+"px"
+        
+        // coursePopup.style.top = "0px";
+
+
         document.getElementById("registration-info").style.pointerEvents = "none";
     });
 

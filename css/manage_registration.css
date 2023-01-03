@@ -144,6 +144,7 @@ button[disabled] {
     padding: 20px;
     border: 1px solid #cccccc;
     width: 50%;
+    margin-top: 2vh;
     border-radius: 3vh;
 }
 

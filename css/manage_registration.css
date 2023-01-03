@@ -137,27 +137,42 @@ button[disabled] {
 /* Style for the popup */
 #course-popup {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;
     border: 1px solid #cccccc;
     width: 50%;
+    border-radius: 3vh;
+}
+
+#course-popup h2 {
+    text-align: center;
 }
 
 /* Style for the labels in the popup */
 #course-popup label {
     display: block;
-    /* margin-bottom: 5px; */
+    margin-bottom: 5px;
 }
 
 /* Style for the inputs in the popup */
-#course-popup input {
+#course-popup input[type="text"] {
     width: 100%;
     padding: 12px;
     border: 1px solid #cccccc;
     box-sizing: border-box;
+    margin-bottom: 2vh;
+}
+
+#checkbox-container {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#course-popup input[type="checkbox"] {
+    width: auto;
 }
 
 .input-error {
@@ -180,6 +195,10 @@ button[disabled] {
     color: #cccccc;
     font-size: 24px;
     cursor: pointer;
+    margin-right: 0.5vh;
+    margin-top: 0.5vh;
+    border-radius: 3vh;
+    background-color: transparent;
 }
   
 .dragging {

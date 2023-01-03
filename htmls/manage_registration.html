@@ -42,22 +42,26 @@
     </div>
     <!-- Popup to add or edit course information -->
     <div id="course-popup" style="display:none;">
+        <h2>Add Class</h2>
         <!-- Course Inputs -->
-        <label for="course-name-input">Course name (optional):</label><br>
-        <input type="text" id="course-name-input"><br>
+        <label for="course-name-input">Course name (optional):</label>
+        <input type="text" id="course-name-input">
 
-        <label for="course-code-input">Course code:</label><br>
-        <input type="text" id="course-code-input"><br>
+        <label for="course-code-input">Course code:</label>
+        <input type="text" id="course-code-input">
         <div id = "course-code-error" class = "input-error">Error: course code must be a 5 digit number</div>
 
-        <label for="alternate-courses-input">Alternate courses (optional):</label><br>
-        <input type="text" id="alternate-courses-input"><br>
+        <label for="alternate-courses-input">Alternate courses (optional):</label>
+        <input type="text" id="alternate-courses-input">
         <div id = "alternate-courses-error" class = "input-error">Error: each course code must be a 5 digit number seperated by commas (ex: 12345, 54321) </div>
 
 
-        <label for="waitlist-input">Waitlist:</label><br>
-        <input type="checkbox" id="waitlist-input"><br>
-
+        <div id="checkbox-container">
+            <label for="waitlist-input">Waitlist:</label>
+            <input type="checkbox" id="waitlist-input">
+        </div>
+        
+        
         <button type="button" id="save-button" class="form-buttons">Save</button>
         <input type="hidden" id="add-edit" value="add" class="form-buttons">
         <button id="close-button">x</button>

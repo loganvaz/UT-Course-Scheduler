@@ -16,3 +16,11 @@ chrome.alarms.onAlarm.addListener( (alarm) => {
         );
     }
 });
+
+//credit: https://dev.to/avigoldman/open-a-new-tab-when-your-browser-extension-is-installed-7h7
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason === "install") {
+      chrome.tabs.create({ url: "../htmls/faq.html"});
+    }
+});
+  

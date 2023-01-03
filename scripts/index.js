@@ -1,5 +1,10 @@
 // document.getElementById("manage_button").addEventListener('click', open_manage_registration);
 document.addEventListener('DOMContentLoaded', function(){
+
+    document.getElementById("help-button").addEventListener("click", () => {
+        window.open("../htmls/faq.html", "");
+    });
+
     //TODO maybe add this to background script instead
     chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
     //load class queue as copy of saved requested classes
@@ -24,8 +29,6 @@ document.addEventListener('DOMContentLoaded', function(){
             set_displayed_time(data.global_alarm);
         }
     });
-
-
 
     //add list of classes
     chrome.storage.sync.get(["saved_registration"], function(data) {

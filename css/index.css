@@ -16,6 +16,17 @@ body {
     margin-top: 1em;
 }
 
+#help-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.75em;
+    height: 1.75em;
+    margin-right: 0.3em;
+    margin-top: 0.3em;
+    cursor: pointer;
+}
+
 #class-list-div{
     margin-top: 1em;
 }
@@ -98,5 +109,8 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     padding: 0.25em;
     padding-left: 0.75em;
     margin-top: 0.5em;
-    
+}
+
+#no-registration-time {
+    margin-top: 1em;
 }

@@ -137,7 +137,7 @@ button[disabled] {
 /* Style for the popup */
 #course-popup {
     position: absolute;
-    top: 55%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
@@ -171,10 +171,10 @@ button[disabled] {
     justify-content: flex-start;
 }
 
-#course-popup input[type="checkbox"] {
+#waitlist-input {
     width: auto;
+    margin-top: 0;
 }
-
 .input-error {
     color: red;
     font-size: small;

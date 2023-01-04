@@ -6,7 +6,6 @@
         <link rel="stylesheet" type="text/css" href="../css/manage_registration.css">
     </head>
 <body>
-
     <title>Manage Registration</title>
     <h1>Manage Registration</h1>
     <!-- ORIGINAL TABLE AND INPUT BASED ON CHATGPT RESPONSE -->
@@ -17,7 +16,10 @@
                 <div class = "flex-box">
                     <div id = "title_component" class = "title_component" >Scheduled Courses</div>
                     <img src = "../images/Texas_Longhorns_logo.svg" class = "longhorn_image_title title_component"/>
-                    <div class = "title_component" id = "contain_add_row_button"><button type="button" id="add-row-button" style="display:none;">Add Class</button></div>
+                    <div class = "title_component" id = "contain_add_row_button">
+                        <button type="button" id="add-row-button" class = "add-lock" style="display:none;">Add Class</button>
+                        <img id="lock-icon" src="../images/lock.svg" class="add-lock"/>
+                    </div>
                 </div>
             </caption>
         </table>

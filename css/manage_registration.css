@@ -60,7 +60,7 @@ caption {
 }
 
 /* Style for the add row button */
-#add-row-button { 
+.add-lock { 
     float:right;
     text-align: right;
     border-radius: 1vh;
@@ -71,6 +71,11 @@ caption {
     font-size: larger;
     cursor: pointer;
     
+}
+
+#lock-icon {
+    background-color: transparent;
+    cursor: auto;
 }
   
 /* Style for the table cells */
@@ -203,6 +208,7 @@ button[disabled] {
     color: red;
     font-size: small;
     display: none;
+    margin-bottom: 2vh;
 }
 #course-popup-buttons {
     text-align: center;

@@ -110,12 +110,14 @@ function validate_input(){
     const course_code = document.getElementById("course-code-input");
     var passed = true;
     if(!/^\d{5}$/.test(course_code.value)){
-    document.getElementById("course-code-error").style.display = "block";
+       document.getElementById("course-code-error").style.display = "block";
+       course_code.style.marginBottom = "0";
        passed = false;
     }
-    const alternate_courses = document.getElementById("alternate-courses-input").value;
-    if(!/^(\d{5}( *, *\d{5})*)?$/.test(alternate_courses)){
+    const alternate_courses = document.getElementById("alternate-courses-input");
+    if(!/^(\d{5}( *, *\d{5})*)?$/.test(alternate_courses.value)){
         document.getElementById("alternate-courses-error").style.display = "block";
+        alternate_courses.style.marginBottom = "0";
         passed = false;
     }
     return passed;
@@ -145,6 +147,8 @@ function clear_popup(){
     document.getElementById("registration-info").style.removeProperty("pointer-events");
     [].slice.call(document.getElementsByClassName("input-error")).forEach((error_text) => {
         error_text.style.display = "none";
+        document.getElementById("course-code-input").style.marginBottom = "2vh";
+        document.getElementById("alternate-courses-input").style.marginBottom = "2vh";
     });
     document.getElementById("course-popup").style.display = "none";
 }

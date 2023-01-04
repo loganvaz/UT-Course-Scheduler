@@ -58,6 +58,7 @@ function setup_page(){
     // Get the edit and submit buttons
     const editButton = document.getElementById("edit-button");
     editButton.addEventListener("click", function() {
+        document.getElementById("lock-icon").style.display = "none";
         addRowButton.style.display = "inline-block";
         editButton.disabled = true;
         //enable the submit button
@@ -69,6 +70,7 @@ function setup_page(){
     const submitButton = document.getElementById("submit-button");
     submitButton.addEventListener("click", function() {
         addRowButton.style.display = "none";
+        document.getElementById("lock-icon").style.removeProperty("display");
         submitButton.disabled = true;
 
         //store the current table

@@ -1,6 +1,7 @@
 /* SOME OF STYLESHEET FOR TABLE BASED ON CHATGPT RESPONSE */
 @import "global.css";
 
+
 h1 {
     text-align: center;
     padding-bottom: 10px;
@@ -226,7 +227,7 @@ button[disabled] {
     background-color: #ACCEF7;
 }
 
- .registration-time-section {
+ #registration-time-section {
     text-align: center;
     border-width: 1px;
     border-style: solid;

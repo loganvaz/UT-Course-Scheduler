@@ -12,10 +12,20 @@ document.addEventListener('DOMContentLoaded', function()  {
         table_titles.push(cell.innerText);
     });
 
+    // document.addEventListener("resize", position_footer);
+    // position_footer();
+    
+
     
 });
 
+const max = (v1, v2) => {return v1 > v2 ? v1 : v2}
 
+function position_footer() {
+    let footer = document.getElementById("footer");
+    footer.bottom = max(document.getElementById("registration-time-section").getBoundingClientRect().bottom+footer.getBoundingClientRect().height, document.getElementsByTagName("body")[0].getBoundingClientRect().bottom);
+
+}
 
 function get_listed(has_cells) {
     let list_of_cells = has_cells.cells;

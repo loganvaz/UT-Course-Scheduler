@@ -4,6 +4,7 @@ body{
 .faq-heading{
     border-bottom: #777;
     padding: 20px 60px;
+    text-align: center;
 }
 .faq-container{
 display: flex;
@@ -43,6 +44,14 @@ flex-direction: column;
     background-color: #F9F9F9;
 }
 
+.faq-list {
+    line-height: 1.5em;
+    font-size: 1.25em;
+}
+li {
+    margin-bottom: .5em;
+}
+
 /* Style the faq-page panel. Note: hidden by default */
 .faq-body {
     padding: 0 18px;
@@ -58,9 +67,17 @@ flex-direction: column;
     color: #777;
     float: right;
     margin-left: 5px;
+    color: var(--orange);
+    
+}
+
+h1.faq-page:after {
+    color: var(--orange);
 }
 
 .active:after {
     content: "\2796";
+    color: var(--orange);
+    
     /* Unicode character for "minus" sign (-) */
 }

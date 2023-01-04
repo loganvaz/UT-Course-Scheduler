@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="../css/manage_registration.css">
     </head>
 <body>
+
     <title>Manage Registration</title>
     <h1>Manage Registration</h1>
     <!-- ORIGINAL TABLE AND INPUT BASED ON CHATGPT RESPONSE -->
@@ -24,11 +25,11 @@
             <!-- Table header -->
             <thead id = "table-header">
                 <tr>
-                    <th>Registration Order</th>
+                    <th title = "The order the classes will be registered in">Registration Order</th>
                     <th>Course name</th>
                     <th>Course code</th>
                     <th>Waitlist</th>
-                    <th>Alternate Courses</th>
+                    <th title = "Courses to register for if you are unable to get into the course specified by course code">Alternate Courses</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -71,17 +72,19 @@
         <input type="hidden" id="add-edit" value="add" class="form-buttons">
     </div>
     <br/>
-    <div class="registration-time-section">
+    <div id="registration-time-section">
         <h2 id="registration-time-title">Registration Time</h2>
         <label for="registration-time" id="registration-time-label">Enter your registration time (in current timezone):</label>
         <input type="datetime-local" id="registration-time" min="">
         <h5>P.S. Please don't get this wrong!</h5>
         <button id="update-time" class="submit-button-type">Update Registration Time</button>
     </div>
+
+
     <div id = "footer">
-        <footer><b>Disclaimer: This tool is not affiliated with the University of Texas at Austin in any way. It is purely experimental,
-            should be used at your own risk. The creators are not responsible in any way for any damages: academic, emotional,
-            spiritual, familial, spousal, physical, electrical, financial, mental, nuclear, or otherwise.</b></footer>
+        <footer><b>Disclaimer: This tool is not affiliated with the University of Texas at Austin in any way. It is purely experimental and should be used at your own risk. The creators are not responsible in any way for any damages: academic, emotional,
+            spiritual, familial, spousal, physical, electrical, financial, mental, nuclear, or otherwise.</b>
+        </footer>
     </div>
 </body>
 </html>

@@ -5,7 +5,7 @@ function load_register_vars(){
     //get the previous registration action
     chrome.storage.session.get(["working_registration_copy"]).then((registration_table) => {
         chrome.storage.session.get(["registration_progress"]).then((registration_progress) => {
-            if(registration_progress == undefined){
+            if(typeof registration_progress.registration_progress === 'undefined'){
                 //not currently registering
                 console.log("not currently registering!");
                 return;
@@ -16,18 +16,19 @@ function load_register_vars(){
 }
 
 async function register(registration_table, registration_progress){
-   await log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
+    await write_log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
     //if this is the first action just add a class
     if(registration_progress["prev_action"] == "none"){
         const course_code = get_course_code(registration_table, registration_progress);
         //UPDATE STATE
         registration_progress["prev_action"] = "add";
         update_registration_progress(registration_progress);
+        await write_log("About to add class!");
         add_class(course_code);
         return;
     }
     //get state of page
-    const page_state = read_add_response();
+    const page_state = await read_add_response();
     //if previous action is waitlist, always try to add an alternate, regardless of success/failure
     if(registration_progress["prev_action"] == "waitlist"){
         waitlist_add_next(registration_table, registration_progress);
@@ -42,34 +43,38 @@ async function register(registration_table, registration_progress){
             registration_progress["course_index"] = -1;
             update_registration_progress(registration_progress);
             add_class(get_course_code(registration_table, registration_progress));
+            return;
         }
         else {
             //if we failed an add of main course code, try waitlist if requested
-            if(registration_progress["course_index"] == -1 && registration_table[registration_progress["table_index"]]["Waitlist"] == "true"){
+            if(registration_progress["course_index"] == -1){
                 //attempt waitlist if possible
-                if(page_state["waitlist"]){
+                if(page_state["waitlist"] && registration_table[registration_progress["table_index"]]["Waitlist"] == "true"){
                     registration_progress["prev_action"] = "waitlist";
                     update_registration_progress(registration_progress);
                     waitlist_class();
                 }
                 else {
-                    //move on to alternates
-                    waitlist_add_next(registration_table, registration_progress);
+                    add_next_alternate(registration_table, registration_progress);
                 }
+            }
+            else {
+                //failed to add alternate
+                add_next_alternate(registration_table, registration_progress);
                 return;
             }
         }
     }
 }
 
-async function log(message){
-    chrome.storage.sync.get(["registration_log"]).then((log_msg) => {
-        chrome.storage.sync.set({"registration_log": log_msg.registration_log+"\n"+message});
+async function write_log(message){
+    chrome.storage.session.get(["registration_log"]).then((log_msg) => {
+        chrome.storage.session.set({"registration_log": log_msg.registration_log+"\n"+message});
     });
 }
 
 async function print_log(){
-    chrome.storage.sync.get(["registration_log"]).then((log_msg) => {
+    chrome.storage.session.get(["registration_log"]).then((log_msg) => {
         console.log(log_msg.registration_log);
     });
 }
@@ -98,13 +103,12 @@ function get_course_code(registration_table, registration_progress){
 
 function add_class(unique_num){
     if(unique_num == -1){
-        //
-
-        log("Finished registration!").then(() => {
+        write_log("Finished registration!").then(() => {
             print_log().then(() => {
-                return;
-            })
+                cleanup_registration();
+            });
         });
+        return;
     }
     assert_equals(unique_num.length, 5);
     //select add radio button
@@ -125,10 +129,9 @@ function add_class(unique_num){
     submit_button[0].click();    
 }
 
-function waitlist_add_next(registration_table, registration_progress){
+function add_next_alternate(registration_table, registration_progress){
     //now try to add alternates
     registration_progress["course_index"]++;
-    assert_equals(registration_progress["course_index"], 0);
     const alt_course_code = get_course_code(registration_table, registration_progress);
     if(alt_course_code != -1){
         //have more alternates to try
@@ -155,7 +158,7 @@ function waitlist_class(){
     submit_button[0].click();
 }
 
-function read_add_response(){
+async function read_add_response(){
     //get response message
     const message = document.getElementById("n_message");
     assert_not_equals(message, null);
@@ -172,14 +175,16 @@ function read_add_response(){
     }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
     const waitlist = document.getElementById("s_request_STAWL");
-    console.log("Failed to add class!");
+    write_log("Failed to add class!").then(() => {
+        console.log("Failed to add class, console.log");
+    });
     return {"success": false, "waitlist": waitlist != null, "response": message_text};
 }
 
 function cleanup_registration(){
-    chrome.storage.session.remove(["working_registration_copy"]);
-    chrome.storage.session.remove(["registration_progress"]);
-    chrome.storage.sync.remove(["global_alarm"]);  
+    chrome.storage.session.remove(["working_registration_copy", "registration_progress", "registration_log"], function(){
+        chrome.storage.sync.remove(["global_alarm"], ()=>{});  
+    });
 }
 
 //checks if two variables are equal, throws error if they aren't

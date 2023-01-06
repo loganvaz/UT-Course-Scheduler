@@ -68,7 +68,7 @@ async function register(registration_table, registration_progress){
 }
 
 async function write_log(message){
-    chrome.storage.session.get(["registration_log"]).then((log_msg) => {
+    await chrome.storage.session.get(["registration_log"]).then((log_msg) => {
         chrome.storage.session.set({"registration_log": log_msg.registration_log+"\n"+message});
     });
 }

@@ -4,7 +4,16 @@ chrome.alarms.onAlarm.addListener( (alarm) => {
         //LOAD CLASSES
         //loading working copy of the saved registration table
         chrome.storage.sync.get(["saved_registration"]).then((registration_table) => {
-            // var reg_table = registration_table.saved_registration;
+            let reg_table = registration_table.saved_registration;
+            reg_table = reg_table.map( (row) => {
+                row["Alternate Courses"] = row["Alternate Courses"].split(",").map(Number);
+                row["Waitlist"] = row["Waitlist"] == "true" || row["Waitlist"] == "yes";
+                return row;
+            });
+
+            console.log("reg_table is " + reg_table + " alt courses r " + reg_table[0]["Alternate Courses"]);
+
+
             // [].slice.call(reg_table.cells).forEach((cell, idx) => {
             //     if (table_titles[idx] != "Actions"){
             //         if (table_titles[idx] == "Alternate Courses") {

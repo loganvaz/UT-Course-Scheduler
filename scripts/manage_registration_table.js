@@ -26,9 +26,12 @@ const action_idx = 5;
 document.addEventListener('DOMContentLoaded', function()  {
 
     chrome.storage.sync.get(["saved_registration"], function(data) {
-        data["saved_registration"].forEach((instance) => {
-            add_row(instance["Course name"], instance["Course code"], instance["Waitlist"], instance["Alternate Courses"]);
-        })
+        if (data.saved_registration) {
+            data.saved_registration.forEach((instance) => {
+                add_row(instance["Course name"], instance["Course code"], instance["Waitlist"], instance["Alternate Courses"]);
+            })
+        }
+
 
     });
 

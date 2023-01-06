@@ -84,8 +84,7 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
     editButton.src = "../images/edit-pencil.svg";
     editButton.onclick = function(e) {
         e.target.parentNode.parentNode.parentNode.classList.add("selected_row");
-        edit_row(e.target.parentNode.parentNode);
-        
+        edit_row(e.target.parentNode.parentNode);  
     };
     flex_div.appendChild(editButton);
 
@@ -246,10 +245,8 @@ function mouseUpHandler() {
 function reset_priority() {
     var table_body = document.getElementById("course-table-body");
     var children = table_body.childNodes;
-    console.log("children r " + children);
 
     [].slice.call(table_body.rows).forEach( (row, idx) => {
-        console.log(row);
         row.cells[priority_idx].innerText = idx+1;
     });
 

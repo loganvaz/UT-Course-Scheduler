@@ -8,16 +8,17 @@ document.addEventListener('DOMContentLoaded', function(){
     //TODO maybe add this to background script instead
     chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
     //load class queue as copy of saved requested classes
-    const class_queue = ["51895","13220"];
-    //read list/hashmap of course codes that we want to waitlist
-    // chrome.storage.session.setAccessLevel({"accessLevel": "TRUSTED_AND_UNTRUSTED_CONTEXTS"});
+    // const class_queue = ["51895","13220"];
+    // //read list/hashmap of course codes that we want to waitlist
+    // // chrome.storage.session.setAccessLevel({"accessLevel": "TRUSTED_AND_UNTRUSTED_CONTEXTS"});
     
-    chrome.storage.session.set({ "class_queue": class_queue }).then(() => {
-        //click the "submit" button to enter into registration section
-        var manage_button = document.getElementById("manage-button");
-        manage_button.addEventListener('click', open_manage_registration);
-    });
+    // chrome.storage.session.set({ "class_queue": class_queue }).then(() => {
+    //     //click the "submit" button to enter into registration section
+       
+    // });
     
+    var manage_button = document.getElementById("manage-button");
+    manage_button.addEventListener('click', open_manage_registration);
 
     //display current registration time
     chrome.storage.sync.get(["global_alarm"], function(data) {

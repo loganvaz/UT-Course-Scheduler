@@ -31,8 +31,6 @@ function get_listed(has_cells) {
     let list_of_cells = has_cells.cells;
     var to_ret = {};
     [].slice.call(list_of_cells).forEach((cell, idx) => {
-        console.log("cell inner text is " + cell.innerText);
-        console.log("key is " + table_titles[idx]);
         if (table_titles[idx] != 'Actions')
         {
             to_ret[table_titles[idx]] = cell.innerText;
@@ -50,8 +48,8 @@ function store_table() {
     [].slice.call(table_rows).forEach((row) => {saved_registration.push(get_listed(row));});
     console.log("saved registration "+saved_registration);
     chrome.storage.sync.set({ "saved_registration": saved_registration }).then(() => {
-        console.log(saved_registration[0]);
-        console.log(saved_registration[0]["Registration Order"]);
+        // console.log(saved_registration[0]);
+        // console.log(saved_registration[0]["Registration Order"]);
     });
 }
 function setup_page(){
@@ -87,10 +85,10 @@ function setup_page(){
     const addRowButton = document.getElementById("add-row-button");
     addRowButton.addEventListener("click", function(){
         coursePopup.style.display = "block";
-        console.log("bottom of registration-info: "+document.getElementById("registration-info").getBoundingClientRect().bottom);
-        console.log("window height: "+window.innerHeight);
+        // console.log("bottom of registration-info: "+document.getElementById("registration-info").getBoundingClientRect().bottom);
+        // console.log("window height: "+window.innerHeight);
         var percentTop = 100*document.getElementById("registration-info").getBoundingClientRect().bottom/window.innerHeight;
-        console.log("percent: "+percentTop)
+        // console.log("percent: "+percentTop)
         coursePopup.style.top =(document.getElementById("submit-button").getBoundingClientRect().bottom+coursePopup.getBoundingClientRect().height/2)+"px"
         
         // coursePopup.style.top = "0px";
@@ -131,7 +129,7 @@ function trigger_update() {
 }
 
 //create all persistent data that we might need (chrome.storage.sync)
-//all arm data is stored in UTC, but entered in by user in CST
+//all arm data is stored in UTC
 function update_alarm_data(new_date) {
     //update global alarm time 
     chrome.storage.sync.set({"global_alarm": new_date}).then( () => {

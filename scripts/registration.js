@@ -1,47 +1,111 @@
-window.addEventListener ("load", register, false);
+window.addEventListener ("load", load_register_vars, false);
 
-function register(){
-    //read the state of the last class that was added, weird design pattern due to pressing submit restarting the script
-    const response = read_add_response();
-    if(!("no_class" in response)){
-        console.log(response["response"]);
-        if("waitlist" in response && response["waitlist"]){
-            //TODO check if we want to waitlist this class
-            const waitlist = document.getElementById("s_request_STAWL");
-            assert_not_equals(waitlist, null);
-            //s_waitlist_swap_unique use to select class to swap if added to waitlist
-            waitlist.click();
-            //press submit
-            const submit_button = document.getElementsByName("s_submit");
-            assert_equals(submit_button.length, 1);
-            submit_button[0].click();
-            // console.log("Added to waitlist!");
-            // register(false);
-            //window.location.href = "https://utdirect.utexas.edu/registration/registration.WBX";
-            return;
+function load_register_vars(){
+
+    //get the previous registration action
+    chrome.storage.session.get(["working_registration_copy"]).then((registration_table) => {
+        chrome.storage.session.get(["registration_progress"]).then((registration_progress) => {
+            if(registration_progress == undefined){
+                //not currently registering
+                console.log("not currently registering!");
+                return;
+            }
+            register(registration_table.working_registration_copy, registration_progress.registration_progress);
+        });
+    }); 
+}
+
+async function register(registration_table, registration_progress){
+   await log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
+    //if this is the first action just add a class
+    if(registration_progress["prev_action"] == "none"){
+        const course_code = get_course_code(registration_table, registration_progress);
+        //UPDATE STATE
+        registration_progress["prev_action"] = "add";
+        update_registration_progress(registration_progress);
+        add_class(course_code);
+        return;
+    }
+    //get state of page
+    const page_state = read_add_response();
+    //if previous action is waitlist, always try to add an alternate, regardless of success/failure
+    if(registration_progress["prev_action"] == "waitlist"){
+        waitlist_add_next(registration_table, registration_progress);
+        return;
+    }
+    //previously we tried to add a class, either the main or alternate
+    if(registration_progress["prev_action"] == "add"){
+        //we successfully added class
+        if(page_state["success"]){
+            //previous action was add (add course code or alternate)
+            registration_progress["table_index"]++;
+            registration_progress["course_index"] = -1;
+            update_registration_progress(registration_progress);
+            add_class(get_course_code(registration_table, registration_progress));
+        }
+        else {
+            //if we failed an add of main course code, try waitlist if requested
+            if(registration_progress["course_index"] == -1 && registration_table[registration_progress["table_index"]]["Waitlist"] == "true"){
+                //attempt waitlist if possible
+                if(page_state["waitlist"]){
+                    registration_progress["prev_action"] = "waitlist";
+                    update_registration_progress(registration_progress);
+                    waitlist_class();
+                }
+                else {
+                    //move on to alternates
+                    waitlist_add_next(registration_table, registration_progress);
+                }
+                return;
+            }
         }
     }
+}
 
-    //load class queue and 'pop' front element
-    chrome.storage.session.get(["class_queue"]).then((result) => {
-        const class_queue = result.class_queue;
-        if(class_queue == null || class_queue.length == 0){
-            chrome.storage.session.remove("class_queue");
-            return;
-        }
-        const cur_class = class_queue[0];
-        class_queue.splice(0, 1);
-        //update queue
-        console.log("shifting class queue\n");
-        console.log(class_queue);
-        chrome.storage.session.set({ "class_queue": class_queue}).then(() => {
-            console.log("*adding class "+cur_class);
-            add_class(cur_class);
-        });
+async function log(message){
+    chrome.storage.sync.get(["registration_log"]).then((log_msg) => {
+        chrome.storage.sync.set({"registration_log": log_msg.registration_log+"\n"+message});
     });
 }
 
+async function print_log(){
+    chrome.storage.sync.get(["registration_log"]).then((log_msg) => {
+        console.log(log_msg.registration_log);
+    });
+}
+
+function update_registration_progress(registration_progress){
+    chrome.storage.session.set({ "registration_progress": registration_progress}).then(() => {
+        return registration_progress;
+    });
+}
+
+//returns the course code of the class we're trying to add (could be alternate)
+function get_course_code(registration_table, registration_progress){
+    if(registration_progress["table_index"] >= registration_table.length){
+        return -1;
+    }
+    if(registration_progress["course_index"] == -1){
+        return registration_table[registration_progress["table_index"]]["Course code"];
+    } else {
+        let alt_courses = registration_table[registration_progress["table_index"]]["Alternate Courses"];
+        if(alt_courses.length == 0 || registration_progress["course_index"] >= alt_courses.length){
+            return -1;
+        }
+        return alt_courses[registration_progress["course_index"]];
+    }
+}
+
 function add_class(unique_num){
+    if(unique_num == -1){
+        //
+
+        log("Finished registration!").then(() => {
+            print_log().then(() => {
+                return;
+            })
+        });
+    }
     assert_equals(unique_num.length, 5);
     //select add radio button
     const add_radio = document.getElementById("ds_request_STADD");
@@ -59,6 +123,36 @@ function add_class(unique_num){
     const submit_button = document.getElementsByName("s_submit");
     assert_equals(submit_button.length, 1);
     submit_button[0].click();    
+}
+
+function waitlist_add_next(registration_table, registration_progress){
+    //now try to add alternates
+    registration_progress["course_index"]++;
+    assert_equals(registration_progress["course_index"], 0);
+    const alt_course_code = get_course_code(registration_table, registration_progress);
+    if(alt_course_code != -1){
+        //have more alternates to try
+        registration_progress["prev_action"] = "add";
+        update_registration_progress(registration_progress);
+        add_class(alt_course_code);
+        return;
+    }
+    //no alternates left, so move onto next class
+    registration_progress["table_index"]++;
+    registration_progress["course_index"] = -1;
+    update_registration_progress(registration_progress);
+    add_class(get_course_code(registration_table, registration_progress));
+}
+
+function waitlist_class(){
+    const waitlist = document.getElementById("s_request_STAWL");
+    assert_not_equals(waitlist, null);
+    //s_waitlist_swap_unique use to select class to swap if added to waitlist
+    waitlist.click();
+    //press submit
+    const submit_button = document.getElementsByName("s_submit");
+    assert_equals(submit_button.length, 1);
+    submit_button[0].click();
 }
 
 function read_add_response(){
@@ -82,12 +176,18 @@ function read_add_response(){
     return {"success": false, "waitlist": waitlist != null, "response": message_text};
 }
 
+function cleanup_registration(){
+    chrome.storage.session.remove(["working_registration_copy"]);
+    chrome.storage.session.remove(["registration_progress"]);
+    chrome.storage.sync.remove(["global_alarm"]);  
+}
+
 //checks if two variables are equal, throws error if they aren't
 function assert_equals(a, b){
     //TODO actually print variable names or something useful
     //strict equality
     if(a !== b){
-        throw new Error("Failed assertion "+ (a ? a :"null") +" and "+(b ? b : "null")+ "should be equal");
+        throw new Error("Failed assertion "+ (a ? a :"null") +" and "+(b ? b : "null")+ " should be equal");
     }   
 }
 

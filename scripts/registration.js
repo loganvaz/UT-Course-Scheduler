@@ -1,7 +1,6 @@
 window.addEventListener ("load", load_register_vars, false);
 
 function load_register_vars(){
-
     //get the previous registration action
     chrome.storage.session.get(["working_registration_copy"]).then((registration_table) => {
         chrome.storage.session.get(["registration_progress"]).then((registration_progress) => {
@@ -22,16 +21,16 @@ async function register(registration_table, registration_progress){
         const course_code = get_course_code(registration_table, registration_progress);
         //UPDATE STATE
         registration_progress["prev_action"] = "add";
-        update_registration_progress(registration_progress);
-        await write_log("About to add class!");
-        add_class(course_code);
+        await update_registration_progress(registration_progress);
+        // await write_log("About to add class!");
+        await add_class(course_code);
         return;
     }
     //get state of page
     const page_state = await read_add_response();
     //if previous action is waitlist, always try to add an alternate, regardless of success/failure
     if(registration_progress["prev_action"] == "waitlist"){
-        waitlist_add_next(registration_table, registration_progress);
+        await add_next_alternate(registration_table, registration_progress);
         return;
     }
     //previously we tried to add a class, either the main or alternate
@@ -41,26 +40,34 @@ async function register(registration_table, registration_progress){
             //previous action was add (add course code or alternate)
             registration_progress["table_index"]++;
             registration_progress["course_index"] = -1;
-            update_registration_progress(registration_progress);
-            add_class(get_course_code(registration_table, registration_progress));
+            await update_registration_progress(registration_progress);
+            await add_class(get_course_code(registration_table, registration_progress));
             return;
         }
         else {
             //if we failed an add of main course code, try waitlist if requested
             if(registration_progress["course_index"] == -1){
                 //attempt waitlist if possible
-                if(page_state["waitlist"] && registration_table[registration_progress["table_index"]]["Waitlist"] == "true"){
-                    registration_progress["prev_action"] = "waitlist";
-                    update_registration_progress(registration_progress);
-                    waitlist_class();
+                if(registration_table[registration_progress["table_index"]]["Waitlist"]){
+                    if(page_state["waitlist"]){
+                        registration_progress["prev_action"] = "waitlist";
+                        await update_registration_progress(registration_progress);
+                        await write_log("Waitlisting class!");
+                        console.log("Should be waitlisting!");
+                        waitlist_class();
+                    }
+                    else {
+                        await write_log("No waitlist available!");
+                        await add_next_alternate(registration_table, registration_progress);
+                    }
                 }
                 else {
-                    add_next_alternate(registration_table, registration_progress);
+                    await add_next_alternate(registration_table, registration_progress);
                 }
             }
             else {
                 //failed to add alternate
-                add_next_alternate(registration_table, registration_progress);
+                await add_next_alternate(registration_table, registration_progress);
                 return;
             }
         }
@@ -74,13 +81,13 @@ async function write_log(message){
 }
 
 async function print_log(){
-    chrome.storage.session.get(["registration_log"]).then((log_msg) => {
+    await chrome.storage.session.get(["registration_log"]).then((log_msg) => {
         console.log(log_msg.registration_log);
     });
 }
 
-function update_registration_progress(registration_progress){
-    chrome.storage.session.set({ "registration_progress": registration_progress}).then(() => {
+async function update_registration_progress(registration_progress){
+    await chrome.storage.session.set({ "registration_progress": registration_progress}).then(() => {
         return registration_progress;
     });
 }
@@ -101,7 +108,7 @@ function get_course_code(registration_table, registration_progress){
     }
 }
 
-function add_class(unique_num){
+async function add_class(unique_num){
     if(unique_num == -1){
         write_log("Finished registration!").then(() => {
             print_log().then(() => {
@@ -110,6 +117,7 @@ function add_class(unique_num){
         });
         return;
     }
+    await write_log("Attempting to add class: "+unique_num);
     assert_equals(unique_num.length, 5);
     //select add radio button
     const add_radio = document.getElementById("ds_request_STADD");
@@ -129,22 +137,23 @@ function add_class(unique_num){
     submit_button[0].click();    
 }
 
-function add_next_alternate(registration_table, registration_progress){
+async function add_next_alternate(registration_table, registration_progress){
     //now try to add alternates
     registration_progress["course_index"]++;
     const alt_course_code = get_course_code(registration_table, registration_progress);
     if(alt_course_code != -1){
         //have more alternates to try
         registration_progress["prev_action"] = "add";
-        update_registration_progress(registration_progress);
-        add_class(alt_course_code);
+        await update_registration_progress(registration_progress);
+        console.log("Alternate course code: "+alt_course_code);
+        await add_class(alt_course_code);
         return;
     }
     //no alternates left, so move onto next class
     registration_progress["table_index"]++;
     registration_progress["course_index"] = -1;
-    update_registration_progress(registration_progress);
-    add_class(get_course_code(registration_table, registration_progress));
+    await update_registration_progress(registration_progress);
+    await add_class(get_course_code(registration_table, registration_progress));
 }
 
 function waitlist_class(){
@@ -170,14 +179,13 @@ async function read_add_response(){
     //check if error class exists, if it doesn't, we added class successfully
     const err = document.getElementsByClassName("error");
     if(err == null || err.length == 0){
-        console.log("Added class!");
+        // console.log("Added class!");
+        await write_log("Added class!");
         return {"success": true, "response": message_text};
     }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
     const waitlist = document.getElementById("s_request_STAWL");
-    write_log("Failed to add class!").then(() => {
-        console.log("Failed to add class, console.log");
-    });
+    await write_log("Failed to add class! Message: "+message_text);
     return {"success": false, "waitlist": waitlist != null, "response": message_text};
 }
 

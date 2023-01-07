@@ -6,7 +6,7 @@ chrome.alarms.onAlarm.addListener( (alarm) => {
         chrome.storage.sync.get(["saved_registration"]).then((registration_table) => {
             let reg_table = registration_table.saved_registration;
             reg_table = reg_table.map( (row) => {
-                row["Alternate Courses"] = row["Alternate Courses"].split(",").map(Number);
+                row["Alternate Courses"] = row["Alternate Courses"].split(",").map((e) => e.trim());
                 if(row["Alternate Courses"] == 0){
                     row["Alternate Courses"] = [];
                 }

@@ -26,14 +26,14 @@ async function load_register_vars(){
 }
 
 async function register(registration_table, registration_progress){
-    await chrome.storage.session.get(["num_requests"]).then((num_requests) => {
-        if(num_requests.num_requests >= MAX_REQUESTS){
-            cleanup_registration();
-            alert("Ending Registration, maximum requests exceeded");
-            return;
-        }
-        chrome.storage.session.set({"num_requests": num_requests.num_requests+1}).then(()=>{});
-    });
+    console.log("NUM REQUESTS: "+registration_progress["num_requests"]);
+    if(registration_progress["num_requests"]++ >= MAX_REQUESTS){
+        cleanup_registration();
+        alert("Ending Registration, maximum requests exceeded");
+        return;
+    }
+    await update_registration_progress(registration_progress);
+
 
     await write_log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
     //if this is the first action just add a class
@@ -206,9 +206,6 @@ async function read_add_response(){
         // console.log("Added class!");
         await write_log("Successful!");
         return {"success": true, "response": message_text};
-    }
-    if(message_text.includes("0095")){
-        throw new Error("TESTING ERROORR");
     }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
     const waitlist = document.getElementById("s_request_STAWL");

@@ -152,6 +152,7 @@ async function add_next_alternate(registration_table, registration_progress){
     //no alternates left, so move onto next class
     registration_progress["table_index"]++;
     registration_progress["course_index"] = -1;
+    registration_progress["prev_action"] = "add";
     await update_registration_progress(registration_progress);
     await add_class(get_course_code(registration_table, registration_progress));
 }
@@ -180,7 +181,7 @@ async function read_add_response(){
     const err = document.getElementsByClassName("error");
     if(err == null || err.length == 0){
         // console.log("Added class!");
-        await write_log("Added class!");
+        await write_log("Successful!");
         return {"success": true, "response": message_text};
     }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed

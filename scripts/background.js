@@ -15,24 +15,10 @@ chrome.alarms.onAlarm.addListener( (alarm) => {
             });
 
             console.log("reg_table is " + reg_table + " alt courses r " + reg_table[0]["Alternate Courses"]);
-            // [].slice.call(reg_table.cells).forEach((cell, idx) => {
-            //     if (table_titles[idx] != "Actions"){
-            //         if (table_titles[idx] == "Alternate Courses") {
-            //             if(cell.innerText == "")
-            //             to_ret[table_titles[idx]] = cell.innerText.split(",").map(Number);
-            //         }
-            //         else if (table_titles[idx] == "Waitlist") {
-            //             to_ret[table_titles[idx]] = cell.innerText == "true" || cell.innerText == "yes";
-            //         }
-            //         else {
-            //             to_ret[table_titles[idx]] = cell.innerText;
-            //         }
-            //     }
-            // });
 
             chrome.storage.session.set({"working_registration_copy": registration_table.saved_registration }).then(() => {
                 //initialize index of current row we're working on
-                chrome.storage.session.set({ "registration_progress" : {"table_index": 0, "course_index": -1, "is_registering": true, "prev_action": "none"}}).then(() => {
+                chrome.storage.session.set({ "registration_progress" : {"table_index": 0, "course_index": -1, "is_registering": true, "prev_action": "none", "num_requests": 0}}).then(() => {
                     chrome.storage.session.set({"registration_log": "Log:\n\n"}).then(() => {
                         //open tab with registration page when alarm goes off
                         chrome.tabs.create(

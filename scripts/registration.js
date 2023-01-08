@@ -1,6 +1,8 @@
 window.addEventListener ("load", load_register_vars, false);
 
-function load_register_vars(){
+const MAX_REQUESTS = 200;
+
+async function load_register_vars(){
     //get the previous registration action
     chrome.storage.session.get(["working_registration_copy"]).then((registration_table) => {
         chrome.storage.session.get(["registration_progress"]).then((registration_progress) => {
@@ -9,12 +11,30 @@ function load_register_vars(){
                 console.log("not currently registering!");
                 return;
             }
-            register(registration_table.working_registration_copy, registration_progress.registration_progress);
+            
+            register(registration_table.working_registration_copy, registration_progress.registration_progress).catch((err) => {
+                //something went wrong registering for class, just move on to next action
+                write_log("ERROR: "+err+", previous action: "+registration_progress.registration_progress["prev_action"]).then(() => {
+                    // registration_progress.registration_progress["course_index"]++;
+                    update_registration_progress(registration_progress.registration_progress).then(() => {
+                        window.location.href = "https://utdirect.utexas.edu/registration/chooseSemester.WBX";
+                    });           
+                });
+            });
         });
     }); 
 }
 
 async function register(registration_table, registration_progress){
+    await chrome.storage.session.get(["num_requests"]).then((num_requests) => {
+        if(num_requests.num_requests >= MAX_REQUESTS){
+            cleanup_registration();
+            alert("Ending Registration, maximum requests exceeded");
+            return;
+        }
+        chrome.storage.session.set({"num_requests": num_requests.num_requests+1}).then(()=>{});
+    });
+
     await write_log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
     //if this is the first action just add a class
     if(registration_progress["prev_action"] == "none"){
@@ -28,6 +48,8 @@ async function register(registration_table, registration_progress){
     }
     //get state of page
     const page_state = await read_add_response();
+    console.log("table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
+
     //if previous action is waitlist, always try to add an alternate, regardless of success/failure
     if(registration_progress["prev_action"] == "waitlist"){
         await add_next_alternate(registration_table, registration_progress);
@@ -110,6 +132,7 @@ function get_course_code(registration_table, registration_progress){
 
 async function add_class(unique_num){
     if(unique_num == -1){
+        alert("Finished registration!");
         write_log("Finished registration!").then(() => {
             print_log().then(() => {
                 cleanup_registration();
@@ -184,14 +207,17 @@ async function read_add_response(){
         await write_log("Successful!");
         return {"success": true, "response": message_text};
     }
+    if(message_text.includes("0095")){
+        throw new Error("TESTING ERROORR");
+    }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
     const waitlist = document.getElementById("s_request_STAWL");
-    await write_log("Failed to add class! Message: "+message_text);
+    await write_log("Action Failed! Message: "+message_text);
     return {"success": false, "waitlist": waitlist != null, "response": message_text};
 }
 
 function cleanup_registration(){
-    chrome.storage.session.remove(["working_registration_copy", "registration_progress", "registration_log"], function(){
+    chrome.storage.session.remove(["working_registration_copy", "registration_progress", "registration_log", "num_requests"], function(){
         chrome.storage.sync.remove(["global_alarm"], ()=>{});  
     });
 }

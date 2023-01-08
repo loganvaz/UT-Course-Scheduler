@@ -19,7 +19,7 @@ chrome.alarms.onAlarm.addListener( (alarm) => {
             chrome.storage.session.set({"working_registration_copy": registration_table.saved_registration }).then(() => {
                 //initialize index of current row we're working on
                 chrome.storage.session.set({ "registration_progress" : {"table_index": 0, "course_index": -1, "is_registering": true, "prev_action": "none", "num_requests": 0}}).then(() => {
-                    chrome.storage.session.set({"registration_log": "Log:\n\n"}).then(() => {
+                    chrome.storage.session.set({"registration_log": ""}).then(() => {
                         //open tab with registration page when alarm goes off
                         chrome.tabs.create(
                             {
@@ -48,4 +48,12 @@ chrome.runtime.onInstalled.addListener(function(details) {
       chrome.tabs.create({ url: "../htmls/faq.html"});
     }
 });
+  
+
+chrome.runtime.onMessage.addListener(
+    function(request) {
+      if (request.finished)
+        chrome.tabs.create({url: "../htmls/log.html"});
+    }
+);
   

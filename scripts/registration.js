@@ -13,6 +13,7 @@ async function load_register_vars(){
             }
             
             register(registration_table.working_registration_copy, registration_progress.registration_progress).catch((err) => {
+                console.log("ERROR: "+err);
                 //something went wrong registering for class, just move on to next action
                 write_log("ERROR: "+err+", previous action: "+registration_progress.registration_progress["prev_action"]).then(() => {
                     // registration_progress.registration_progress["course_index"]++;
@@ -35,7 +36,7 @@ async function register(registration_table, registration_progress){
     await update_registration_progress(registration_progress);
 
 
-    await write_log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
+    // await write_log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
     //if this is the first action just add a class
     if(registration_progress["prev_action"] == "none"){
         const course_code = get_course_code(registration_table, registration_progress);
@@ -60,6 +61,8 @@ async function register(registration_table, registration_progress){
         //we successfully added class
         if(page_state["success"]){
             //previous action was add (add course code or alternate)
+            //add delimeter
+            await write_log("\1");
             registration_progress["table_index"]++;
             registration_progress["course_index"] = -1;
             await update_registration_progress(registration_progress);
@@ -108,6 +111,22 @@ async function print_log(){
     });
 }
 
+async function get_log(){
+    var log_res = "";
+    await chrome.storage.session.get(["registration_log"]).then((log_msg) => {
+        log_res = log_msg.registration_log;
+    });
+    return log_res;
+}
+
+async function get_table(){
+    var res = "";
+    await chrome.storage.session.get(["working_registration_copy"]).then((registration_table)=>{
+        res = registration_table.working_registration_copy;
+    });
+    return res;
+}
+
 async function update_registration_progress(registration_progress){
     await chrome.storage.session.set({ "registration_progress": registration_progress}).then(() => {
         return registration_progress;
@@ -130,14 +149,31 @@ function get_course_code(registration_table, registration_progress){
     }
 }
 
-async function add_class(unique_num){
-    if(unique_num == -1){
-        alert("Finished registration!");
-        write_log("Finished registration!").then(() => {
-            print_log().then(() => {
-                cleanup_registration();
+function finish_registration(){
+    write_log("Finished registration!").then(() => {
+        print_log().then(() => {
+            //save a copy of log to permanent storage
+            get_log().then((log) => {
+                chrome.storage.sync.set({"last_registration_log": log}).then(() => {
+                    get_table().then((table)=>{
+                        chrome.storage.sync.set({"last_registration_table": table}).then(()=>{
+                            cleanup_registration();
+                        });
+                    }); 
+                });
             });
         });
+    });
+    alert("Finished registration!");
+    (async () => {
+        const response = await chrome.runtime.sendMessage({finished: true});
+    })();
+      
+}
+
+async function add_class(unique_num){
+    if(unique_num == -1){
+        finish_registration();
         return;
     }
     await write_log("Attempting to add class: "+unique_num);
@@ -173,6 +209,8 @@ async function add_next_alternate(registration_table, registration_progress){
         return;
     }
     //no alternates left, so move onto next class
+    //add delimeter in log
+    await write_log("\1");
     registration_progress["table_index"]++;
     registration_progress["course_index"] = -1;
     registration_progress["prev_action"] = "add";
@@ -204,12 +242,12 @@ async function read_add_response(){
     const err = document.getElementsByClassName("error");
     if(err == null || err.length == 0){
         // console.log("Added class!");
-        await write_log("Successful!");
+        await write_log("\5\7"+message_text+"\5");
         return {"success": true, "response": message_text};
     }
     //check if waitlist radio exists, if it does, we can add this class to waitlist if needed
     const waitlist = document.getElementById("s_request_STAWL");
-    await write_log("Action Failed! Message: "+message_text);
+    await write_log("\5"+message_text+"\5");
     return {"success": false, "waitlist": waitlist != null, "response": message_text};
 }
 

@@ -1,12 +1,12 @@
 body{
     font-family: 'Work Sans', sans-serif;
 }
-.faq-heading{
+.info-heading{
     border-bottom: #777;
     padding: 20px 60px;
     text-align: center;
 }
-.faq-container{
+.info-container{
 display: flex;
 justify-content: center;
 flex-direction: column;
@@ -16,8 +16,8 @@ flex-direction: column;
   width: 60%;
   margin: auto;
 }
-/* Style the buttons that are used to open and close the faq-page body */
-.faq-page {
+/* Style the buttons that are used to open and close the info-page body */
+.info-page {
     /* background-color: #eee; */
     color: #444;
     cursor: pointer;
@@ -29,7 +29,7 @@ flex-direction: column;
     margin: auto;
 
 }
-.faq-body{
+.info-body{
     margin: auto;
     /* text-align: center; */
    width: 50%; 
@@ -40,11 +40,11 @@ flex-direction: column;
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active,
-.faq-page:hover {
+.info-page:hover {
     background-color: #F9F9F9;
 }
 
-.faq-list {
+.info-list {
     line-height: 1.5em;
     font-size: 1.25em;
 }
@@ -52,15 +52,15 @@ li {
     margin-bottom: .5em;
 }
 
-/* Style the faq-page panel. Note: hidden by default */
-.faq-body {
+/* Style the info-page panel. Note: hidden by default */
+.info-body {
     padding: 0 18px;
     background-color: white;
     display: none;
     overflow: hidden;
 }
 
-.faq-page:after {
+.info-page:after {
     content: '\02795';
     /* Unicode character for "plus" sign (+) */
     font-size: 13px;
@@ -71,7 +71,7 @@ li {
     
 }
 
-h1.faq-page:after {
+h1.info-page:after {
     color: var(--orange);
 }
 

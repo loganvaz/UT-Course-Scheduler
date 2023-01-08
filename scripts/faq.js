@@ -1,5 +1,5 @@
 //credit: https://github.com/Emilsone/Faq-Page
-var faq = document.getElementsByClassName("faq-page");
+var faq = document.getElementsByClassName("info-page");
 var i;
 
 for (i = 0; i < faq.length; i++) {

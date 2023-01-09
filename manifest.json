@@ -5,7 +5,13 @@
     "version": "0.0",
     "action": {
       "default_popup": "htmls/index.html",
-      "default_icon": "images/Robot_Scheduling_DALLE.png"
+      "default_icon": "images/logo/logo.png"
+    },
+    "icons": {
+      "16": "images/logo/logo16.png",
+      "32": "images/logo/logo32.png",
+      "48": "images/logo/logo48.png",
+      "128": "images/logo/logo128.png"
     },
     "content_scripts": [
         {

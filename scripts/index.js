@@ -19,9 +19,8 @@ document.addEventListener('DOMContentLoaded', function(){
             dropdown.style.display = "block";
         }
     });
-    //TODO maybe add this to background script instead
-    chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
 
+    chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
     
     var manage_button = document.getElementById("manage-button");
     manage_button.addEventListener('click', open_manage_registration);

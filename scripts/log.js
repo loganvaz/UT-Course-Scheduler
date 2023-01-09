@@ -4,7 +4,13 @@ window.onload = () => {
     // console.log("Container!: "+container);
     chrome.storage.sync.get(["last_registration_log"]).then((log_msg)=>{
         var log = log_msg.last_registration_log;
-        console.log("LOG: "+log);
+        if(log == undefined){
+            var empty = document.createElement("h3");
+            empty.innerText = "When you complete your registration, your results will be displayed here."
+            empty.style.fontStyle = "italic";
+            container.appendChild(empty);
+            return;
+        }
         chrome.storage.sync.get(["last_registration_table"]).then((last_table) => {
             var table = last_table.last_registration_table;
             var rows = log.split("\1");

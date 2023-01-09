@@ -6,7 +6,13 @@
 </head>
 <body>
     <h1 class="centered">UT Course Scheduler</h1>
-    <img id="help-button" src="../images/help.svg"/>
+    <div id="dropdown-container" class="dropdown">
+        <img src="../images/menu.svg" id="dropbtn"/>
+        <div id="dropdown-menu" class="dropdown-content">
+          <div id="faq" class="dropdown-option">FAQ</div>
+          <div id="log" class="dropdown-option">Log</div>
+        </div>
+      </div>
     <div class = "centered sub-label" id = "scheduled-courses-title"><b>Scheduled Courses</b></div>
     <div id="class-list-div" class = "centered" hidden> <i>No Classes Selected </i></div>
     <div id = "class-list"></div>

@@ -26,6 +26,56 @@ body {
     margin-top: 0.3em;
     cursor: pointer;
 }
+#log-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.75em;
+    height: 1.75em;
+    margin-left: 0.3em;
+    margin-top: 0.3em;
+    cursor: pointer;
+}
+
+#dropbtn {
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.75em;
+    height: 1.75em;
+    margin-left: 0.3em;
+    margin-top: 0.3em;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    /* min-width: 160px; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content .dropdown-option {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.dropdown-content .dropdown-option:hover {
+    background-color: #f1f1f1
+}
+
+
 
 #class-list-div{
     margin-top: 1em;
@@ -45,9 +95,7 @@ body {
 
 #class-list::-webkit-scrollbar-thumb {
     background-color: darkgrey;
-    /* outline: 1px solid slategrey; */
     border-radius: 10px;
-
 }
 
 .course_element {

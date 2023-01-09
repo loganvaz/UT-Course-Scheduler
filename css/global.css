@@ -1,6 +1,7 @@
 :root {
     --orange: rgb(191, 87, 0);
     --lightorange: rgb(200, 131, 75);
+    --darkorange: rgb(158, 71, 0);
 }
 
 .submit-button-type {

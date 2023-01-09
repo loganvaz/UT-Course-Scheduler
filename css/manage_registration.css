@@ -263,6 +263,10 @@ button[disabled] {
     margin-left: 0.5em;
 }
 
+#update-time:active {
+    background-color: var(--darkorange);
+}
+
 /* #footer {
     position:absolute;
     bottom:5px;

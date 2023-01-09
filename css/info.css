@@ -1,6 +1,7 @@
 body{
     font-family: 'Work Sans', sans-serif;
 }
+
 .info-heading{
     border-bottom: #777;
     padding: 20px 60px;
@@ -80,4 +81,9 @@ h1.info-page:after {
     color: var(--orange);
     
     /* Unicode character for "minus" sign (-) */
+}
+
+img {
+    height: 80%;
+    width: 80%;
 }

@@ -74,7 +74,7 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
     var courseCodeTable = row.insertCell(course_code_idx);
     courseCodeTable.innerHTML = courseCode;
     var waitlistTable = row.insertCell(course_waitlist_idx);
-    waitlistTable.innerHTML = waitlist;
+    waitlistTable.innerHTML = waitlist ? "yes" : "no";
     var alternateCoursesTable = row.insertCell(alternate_course_idx);
     alternateCoursesTable.innerHTML = alternateCourses;
     var actionsTable = row.insertCell(action_idx);
@@ -129,7 +129,7 @@ function edit_row(cell){
     const row = cell.parentNode;
     document.getElementById("course-name-input").value = row.cells[course_name_idx].innerText;
     document.getElementById("course-code-input").value = row.cells[course_code_idx].innerText;
-    document.getElementById("waitlist-input").checked = row.cells[course_waitlist_idx].innerText == "true";
+    document.getElementById("waitlist-input").checked = row.cells[course_waitlist_idx].innerText == "yes";
     document.getElementById("alternate-courses-input").value = row.cells[alternate_course_idx].innerText;
     document.getElementById("add-edit").value = row.rowIndex-1;
     document.getElementById("registration-info").style.pointerEvents = "none";

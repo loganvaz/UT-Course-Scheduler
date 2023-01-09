@@ -1,7 +1,6 @@
 
 window.onload = () => {
     const container = document.getElementById("container");
-    // console.log("Container!: "+container);
     chrome.storage.sync.get(["last_registration_log"]).then((log_msg)=>{
         var log = log_msg.last_registration_log;
         if(log == undefined){
@@ -42,7 +41,6 @@ window.onload = () => {
                             text.style.color = "red";
                         }
                     }
-
                     message_body.appendChild(text);
                 });
                 div.appendChild(message_body);
@@ -50,9 +48,6 @@ window.onload = () => {
                 var hr_line = document.createElement('hr');
                 hr_line.classList.add("hr-line");
                 container.appendChild(hr_line);
-
-
-
             });
     
             //adding event listeners

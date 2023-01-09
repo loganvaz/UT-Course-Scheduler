@@ -16,7 +16,6 @@ async function load_register_vars(){
                 console.log("ERROR: "+err);
                 //something went wrong registering for class, just move on to next action
                 write_log("ERROR: "+err+", previous action: "+registration_progress.registration_progress["prev_action"]).then(() => {
-                    // registration_progress.registration_progress["course_index"]++;
                     update_registration_progress(registration_progress.registration_progress).then(() => {
                         window.location.href = "https://utdirect.utexas.edu/registration/chooseSemester.WBX";
                     });           
@@ -35,15 +34,12 @@ async function register(registration_table, registration_progress){
     }
     await update_registration_progress(registration_progress);
 
-
-    // await write_log("Loaded registration page, previous action was: "+registration_progress["prev_action"]+", table index: "+registration_progress["table_index"]+", course index: "+registration_progress["course_index"]);
     //if this is the first action just add a class
     if(registration_progress["prev_action"] == "none"){
         const course_code = get_course_code(registration_table, registration_progress);
         //UPDATE STATE
         registration_progress["prev_action"] = "add";
         await update_registration_progress(registration_progress);
-        // await write_log("About to add class!");
         await add_class(course_code);
         return;
     }
@@ -188,7 +184,6 @@ async function add_class(unique_num){
     //enter unique num
     const add_unique_input = document.getElementById("s_unique_add");
     assert_not_equals(add_unique_input, null);
-    // add_unique_input.defaultValue = unique_num;
     add_unique_input.value = unique_num;
     //press submit
     const submit_button = document.getElementsByName("s_submit");
@@ -221,7 +216,6 @@ async function add_next_alternate(registration_table, registration_progress){
 function waitlist_class(){
     const waitlist = document.getElementById("s_request_STAWL");
     assert_not_equals(waitlist, null);
-    //s_waitlist_swap_unique use to select class to swap if added to waitlist
     waitlist.click();
     //press submit
     const submit_button = document.getElementsByName("s_submit");
@@ -241,7 +235,6 @@ async function read_add_response(){
     //check if error class exists, if it doesn't, we added class successfully
     const err = document.getElementsByClassName("error");
     if(err == null || err.length == 0){
-        // console.log("Added class!");
         await write_log("\5\7"+message_text+"\5");
         return {"success": true, "response": message_text};
     }
@@ -259,7 +252,6 @@ function cleanup_registration(){
 
 //checks if two variables are equal, throws error if they aren't
 function assert_equals(a, b){
-    //TODO actually print variable names or something useful
     //strict equality
     if(a !== b){
         throw new Error("Failed assertion "+ (a ? a :"null") +" and "+(b ? b : "null")+ " should be equal");
@@ -268,7 +260,6 @@ function assert_equals(a, b){
 
 //checks if two variables are not equal, throws error if they aren't
 function assert_not_equals(a, b){
-    //TODO actually print variable names or something useful
     //strict equality
     if(a === b){
         throw new Error("Failed assertion "+(a ? a: "null")+" and "+(b ? b : "null")+" should not be equal");

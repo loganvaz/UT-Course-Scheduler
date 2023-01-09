@@ -266,8 +266,3 @@ button[disabled] {
 #update-time:active {
     background-color: var(--darkorange);
 }
-
-/* #footer {
-    position:absolute;
-    bottom:5px;
-} */

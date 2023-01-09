@@ -29,10 +29,7 @@ chrome.alarms.onAlarm.addListener( (alarm) => {
                         //remove alarm after it's been triggered
                         chrome.alarms.clear(
                             "registration_alarm",
-                            () => {
-                                //TODO remove alarm when done registering
-                                //chrome.storage.sync.remove(["global_alarm"]);     
-                            }
+                            () => {}
                         );
                         console.log("FIRST CLASS TO REGISTER FOR: "+registration_table.saved_registration[0]["Course name"]);
                     });

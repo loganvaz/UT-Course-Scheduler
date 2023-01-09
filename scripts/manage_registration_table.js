@@ -1,7 +1,6 @@
 /*
 Dragging rows in table based on: https://htmldom.dev/drag-and-drop-table-row/
 */
-
 var drag_started = false;
 var dragging_el;
 var dragging_row_idx;
@@ -24,19 +23,14 @@ const action_idx = 5;
 
 //when loaded, retreive alr saved courses
 document.addEventListener('DOMContentLoaded', function()  {
-
     chrome.storage.sync.get(["saved_registration"], function(data) {
         if (data.saved_registration) {
             data.saved_registration.forEach((instance) => {
                 add_row(instance["Course name"], instance["Course code"], instance["Waitlist"], instance["Alternate Courses"]);
             })
         }
-
-
     });
-
     document.getElementById("course-table").style.pointerEvents = "none";
-    
 });
 
 function save_class(){
@@ -44,7 +38,6 @@ function save_class(){
     const courseCode = document.getElementById("course-code-input").value;
     const waitlist = document.getElementById("waitlist-input").checked;
     const alternateCourses = document.getElementById("alternate-courses-input").value;
-
     //validate input
     if(validate_input()){
         add_row(courseName, courseCode, waitlist, alternateCourses);
@@ -60,12 +53,6 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
         courseTableBody.deleteRow(rowVal);
     }
     var row = courseTableBody.insertRow(edit_request ? rowVal : -1);
-
-    // var priority_cell = document.createElement("div");
-    // var draggable_icon = document.createElement("img");
-    // draggable_icon.src = "../images/drag.svg";
-    // priority_cell.appendChild(draggable_icon);
-    // priority_cell.innerText = priority_idx;
     var priority_cell = row.insertCell(priority_idx);
     priority_cell.classList.add("priority-cell");
 
@@ -81,7 +68,7 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
     var flex_div = document.createElement("div");
     flex_div.classList.add("action-cell");
     actionsTable.appendChild(flex_div);
-    // actionsTable.classList.add("action-cell");
+
     var editButton = document.createElement("input");
     editButton.type = "image";
     editButton.src = "../images/edit-pencil.svg";
@@ -239,10 +226,7 @@ function mouseUpHandler() {
     table.style.removeProperty('display');
     drag_started = false;
 
-
-    //reset priority idx of table
     reset_priority();
-
 };
 
 function reset_priority() {
@@ -252,7 +236,6 @@ function reset_priority() {
     [].slice.call(table_body.rows).forEach( (row, idx) => {
         row.cells[priority_idx].innerText = idx+1;
     });
-
 }
 
 function mouseDownHandler(e) {

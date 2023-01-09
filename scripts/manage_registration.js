@@ -11,12 +11,6 @@ document.addEventListener('DOMContentLoaded', function()  {
     [].slice.call(document.getElementById("table-header").rows[0].cells).forEach((cell) => {
         table_titles.push(cell.innerText);
     });
-
-    // document.addEventListener("resize", position_footer);
-    // position_footer();
-    
-
-    
 });
 
 const max = (v1, v2) => {return v1 > v2 ? v1 : v2}
@@ -24,7 +18,6 @@ const max = (v1, v2) => {return v1 > v2 ? v1 : v2}
 function position_footer() {
     let footer = document.getElementById("footer");
     footer.bottom = max(document.getElementById("registration-time-section").getBoundingClientRect().bottom+footer.getBoundingClientRect().height, document.getElementsByTagName("body")[0].getBoundingClientRect().bottom);
-
 }
 
 function get_listed(has_cells) {
@@ -35,8 +28,7 @@ function get_listed(has_cells) {
         {
             to_ret[table_titles[idx]] = cell.innerText;
         }
-        //to_ret.push(cell.innerText);
-    })
+    });
 
     return to_ret;
 }
@@ -47,10 +39,7 @@ function store_table() {
     var saved_registration = [];
     [].slice.call(table_rows).forEach((row) => {saved_registration.push(get_listed(row));});
     console.log("saved registration "+saved_registration);
-    chrome.storage.sync.set({ "saved_registration": saved_registration }).then(() => {
-        // console.log(saved_registration[0]);
-        // console.log(saved_registration[0]["Registration Order"]);
-    });
+    chrome.storage.sync.set({ "saved_registration": saved_registration }).then(() => {});
 }
 function setup_page(){
     // Get the edit and submit buttons
@@ -61,7 +50,6 @@ function setup_page(){
         editButton.disabled = true;
         //enable the submit button
         document.getElementById("submit-button").disabled = false;
-
         //allow in row editting
         document.getElementById("course-table").style.removeProperty("pointer-events");
     });
@@ -70,30 +58,19 @@ function setup_page(){
         addRowButton.style.display = "none";
         document.getElementById("lock-icon").style.removeProperty("display");
         submitButton.disabled = true;
-
         //store the current table
         store_table();
-
         //enable the edit button
         document.getElementById("edit-button").disabled = false;
-
         //disable edit/delete in table
         document.getElementById("course-table").style.pointerEvents = "none";
-
     });
     // Get the add row button
     const addRowButton = document.getElementById("add-row-button");
     addRowButton.addEventListener("click", function(){
         coursePopup.style.display = "block";
-        // console.log("bottom of registration-info: "+document.getElementById("registration-info").getBoundingClientRect().bottom);
-        // console.log("window height: "+window.innerHeight);
         var percentTop = 100*document.getElementById("registration-info").getBoundingClientRect().bottom/window.innerHeight;
-        // console.log("percent: "+percentTop)
-        coursePopup.style.top =(document.getElementById("submit-button").getBoundingClientRect().bottom+coursePopup.getBoundingClientRect().height/2)+"px"
-        
-        // coursePopup.style.top = "0px";
-
-
+        coursePopup.style.top =(document.getElementById("submit-button").getBoundingClientRect().bottom+coursePopup.getBoundingClientRect().height/2)+"px";
         document.getElementById("registration-info").style.pointerEvents = "none";
     });
 
@@ -121,7 +98,6 @@ function set_displayed_time(date_init){
 function trigger_update() {
     document.getElementById("update-time").addEventListener("click", () => {
         const value = document.getElementById("registration-time").value;
-        //convert string to date
         const new_date = new Date(new Date(value));
         console.log("New Date:" + new_date.toISOString());
         update_alarm_data(new_date.getTime());
@@ -129,7 +105,7 @@ function trigger_update() {
 }
 
 //create all persistent data that we might need (chrome.storage.sync)
-//all arm data is stored in UTC
+//all alarm data is stored in UTC
 function update_alarm_data(new_date) {
     //update global alarm time 
     chrome.storage.sync.set({"global_alarm": new_date}).then( () => {

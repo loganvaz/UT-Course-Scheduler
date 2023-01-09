@@ -1,4 +1,3 @@
-// document.getElementById("manage_button").addEventListener('click', open_manage_registration);
 document.addEventListener('DOMContentLoaded', function(){
 
     document.getElementById("faq").addEventListener("click", () => {
@@ -52,8 +51,6 @@ document.addEventListener('DOMContentLoaded', function(){
             })
         }
     });
-
-
 });
 
 function set_displayed_time(date_init){
@@ -62,10 +59,7 @@ function set_displayed_time(date_init){
     document.getElementById("registration-time").value = now.toISOString().slice(0, 16);
 }
 
-
-
 function open_manage_registration(){
-    // throw new Error("Manage registration time!");
     chrome.tabs.create(
     {
         "url": "htmls/manage_registration.html"

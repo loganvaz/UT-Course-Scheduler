@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "UT Course Scheduler",
     "description": "Automatically enroll in your selected courses at your registration time for UT Austin!",
-    "version": "0.0",
+    "version": "0.0.1",
     "action": {
       "default_popup": "htmls/index.html",
       "default_icon": "images/logo/logo.png"

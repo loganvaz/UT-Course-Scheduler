@@ -4,6 +4,9 @@ chrome.alarms.onAlarm.addListener( (alarm) => {
         //LOAD CLASSES
         //loading working copy of the saved registration table
         chrome.storage.sync.get(["saved_registration"]).then((registration_table) => {
+            if(registration_table.saved_registration === undefined){
+                return;
+            }
             let reg_table = registration_table.saved_registration;
             reg_table = reg_table.map( (row) => {
                 row["Alternate Courses"] = row["Alternate Courses"].split(",").map((e) => e.trim());

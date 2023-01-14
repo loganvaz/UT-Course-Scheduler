@@ -1,6 +1,6 @@
 window.addEventListener ("load", load_register_vars, false);
 
-const MAX_REQUESTS = 200;
+const MAX_REQUESTS = 60;
 
 async function load_register_vars(){
     //get the previous registration action

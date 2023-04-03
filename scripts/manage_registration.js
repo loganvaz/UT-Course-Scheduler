@@ -2,9 +2,13 @@ var table_titles;
 
 document.addEventListener('DOMContentLoaded', function()  {
     setup_page();
-    chrome.storage.sync.get(["global_alarm"], function(data) {
-        set_displayed_time(data.global_alarm == undefined ? Date.now() : data.global_alarm);
+    chrome.storage.sync.get(["global_alarm", "registration_semester"], function(data) {
+        console.log(data);
+        set_displayed_time(data.global_alarm === undefined ? Date.now() : data.global_alarm);
         trigger_update();
+        
+        const defaultSem = data.registration_semester === undefined ? "Fall" : data.registration_semester;
+        document.getElementById("registration-semester").value = defaultSem;
     });
 
     table_titles = [];
@@ -34,7 +38,6 @@ function get_listed(has_cells) {
 }
 
 function store_table() {
-    
     var table_rows = document.getElementById("course-table-body").rows;
     var saved_registration = [];
     [].slice.call(table_rows).forEach((row) => {saved_registration.push(get_listed(row));});
@@ -100,6 +103,9 @@ function trigger_update() {
         const value = document.getElementById("registration-time").value;
         const new_date = new Date(new Date(value));
         console.log("New Date:" + new_date.toISOString());
+        const semester = document.getElementById("registration-semester").value;
+        console.log("Semester: " + semester);
+        update_registration_semester(semester);
         update_alarm_data(new_date.getTime());
     });
 }
@@ -113,6 +119,18 @@ function update_alarm_data(new_date) {
             chrome.alarms.create("registration_alarm" , {
                 when: data.global_alarm
             });
+        });
+    });
+}
+
+function update_registration_semester(semester){
+    if(semester !== "Spring" && semester !== "Summer" && semester !== "Fall"){
+        console.error("Invalid semester");
+        return;
+    }
+    chrome.storage.sync.set({"registration_semester": semester}).then( () => {
+        chrome.storage.sync.get(["registration_semester"], function(data) {
+            console.log("Set registration semester to "+data.registration_semester);
         });
     });
 }

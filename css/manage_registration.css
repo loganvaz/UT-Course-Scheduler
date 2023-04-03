@@ -251,16 +251,16 @@ button[disabled] {
     font-size: 1.6em;
 }
 
-#registration-time-label {
+.registration-time-label {
     font-size: 1.25em;
 }
 
-#registration-time {
+.registration-time-input {
     border-radius: 1vh;
     padding: 2px;
     border: 1px solid black;
-    font-size: 1.5em;
     margin-left: 0.5em;
+    margin-bottom: 1em;
 }
 
 #update-time:active {

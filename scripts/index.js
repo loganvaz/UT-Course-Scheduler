@@ -25,19 +25,22 @@ document.addEventListener('DOMContentLoaded', function(){
     manage_button.addEventListener('click', open_manage_registration);
 
     //display current registration time
-    chrome.storage.sync.get(["global_alarm"], function(data) {
-        if(data.global_alarm == undefined){
+    chrome.storage.sync.get(["global_alarm", "registration_semester"], function(data) {
+        if(data.global_alarm === undefined){
             document.getElementById("registration-time").style.display = "none";
             document.getElementById("registration-time-container").style.marginBottom = '1.5em';
             document.getElementById("no-registration-time").style.removeProperty("display");
         } else {
             set_displayed_time(data.global_alarm);
         }
+        if(data.registration_semester !== undefined){
+            document.getElementById("registration-time-label").innerText = "Registration Time for "+data.registration_semester;
+        }
     });
 
     //add list of classes
     chrome.storage.sync.get(["saved_registration"], function(data) {
-        if(data.saved_registration == undefined){
+        if(data.saved_registration === undefined){
             document.getElementById("class-list-div").hidden = false;
         } else {
             let list_of_classes = document.getElementById("class-list");

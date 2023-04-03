@@ -144,6 +144,10 @@ body {
     text-align: center;
 }
 
+#registration-time-label {
+    font-weight: bold;
+}
+
 /* credit https://www.w3schools.blog/input-type-date-remove-calendar-icon*/
 input[type="datetime-local"]::-webkit-inner-spin-button,
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {

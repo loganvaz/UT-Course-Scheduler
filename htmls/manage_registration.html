@@ -75,8 +75,15 @@
     <br/>
     <div id="registration-time-section">
         <h2 id="registration-time-title">Registration Time</h2>
-        <label for="registration-time" id="registration-time-label">Enter your registration time (in current timezone):</label>
-        <input type="datetime-local" id="registration-time" min="">
+        <label for="registration-time" id="registration-time-label" class="registration-time-label">Enter your registration time (in current timezone):</label>
+        <input type="datetime-local" id="registration-time" class="registration-time-input" min="">
+        <br />
+        <label for="registration-semester" id="registration-semester-label" class="registration-time-label">Enter your registration semester:</label>                
+        <select id="registration-semester" class="registration-time-input">
+            <option value="Fall">Fall</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
         <h5>P.S. Please don't get this wrong!</h5>
         <button id="update-time" class="submit-button-type">Update Registration Time</button>
     </div>

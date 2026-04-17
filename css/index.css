@@ -1,6 +1,16 @@
 @import "global.css";
+
 body {
-    min-width: 300px;
+    min-width: 320px;
+    max-width: 360px;
+    margin: 0;
+    padding: 12px 14px 16px 14px;
+    background-color: #ffffff;
+}
+
+h1 {
+    font-size: 1.4em;
+    margin: 0.3em 0 0.2em 0;
 }
 
 .centered {
@@ -9,38 +19,21 @@ body {
 }
 
 .sub-label {
-    font-size: 1.36em;
+    font-size: 1.05em;
 }
 
 #scheduled-courses-title {
-    margin-top: 1em;
-}
-
-#help-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 1.75em;
-    height: 1.75em;
-    margin-right: 0.3em;
-    margin-top: 0.3em;
-    cursor: pointer;
-}
-#log-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1.75em;
-    height: 1.75em;
-    margin-left: 0.3em;
-    margin-top: 0.3em;
-    cursor: pointer;
+    margin-top: 0.8em;
+    margin-bottom: 0.4em;
+    color: var(--text);
 }
 
 #dropbtn {
     color: white;
     border: none;
     cursor: pointer;
+    width: 1.6em;
+    height: 1.6em;
 }
 
 .dropdown {
@@ -49,106 +42,108 @@ body {
     left: 0;
     width: 1.75em;
     height: 1.75em;
-    margin-left: 0.3em;
-    margin-top: 0.3em;
+    margin-left: 0.4em;
+    margin-top: 0.5em;
     display: inline-block;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
-    /* min-width: 160px; */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    border-radius: 2vh;
-    z-index: 1;
+    background-color: #ffffff;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    z-index: 20;
+    overflow: hidden;
 }
 
 .dropdown-content .dropdown-option {
-    color: black;
-    padding: 12px 16px;
+    color: var(--text);
+    padding: 10px 18px;
     text-decoration: none;
     display: block;
     cursor: pointer;
+    font-size: 0.9em;
 }
 
 .dropdown-content .dropdown-option:hover {
-    background-color: #f1f1f1
+    background-color: #f6f6f8;
 }
 
+.banner {
+    margin: 6px 0 10px 0;
+    font-size: 0.85em;
+    padding: 8px 10px;
+}
 
+.banner ul {
+    padding-left: 18px;
+}
 
-#class-list-div{
-    margin-top: 1em;
+#class-list-div {
+    margin-top: 0.8em;
+    color: var(--muted);
 }
 
 #class-list {
-    overflow-y: scroll;
-    max-height: 300px;
+    overflow-y: auto;
+    max-height: 260px;
     margin-bottom: .5em;
     margin-top: .5em;
+    padding: 0 4px;
 }
 
 #class-list::-webkit-scrollbar {
     background-color: transparent;
-    width: 10px;
+    width: 6px;
 }
 
 #class-list::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    border-radius: 10px;
+    background-color: #cfcfd3;
+    border-radius: 6px;
 }
 
 .course_element {
-    /*border: 2px solid var(--orange);  */
-    /* background-image: linear-gradient(45deg,var(--lightorange), var(--orange), var(--lightorange)); */
-    background-image: radial-gradient(var(--lightorange), var(--orange));
+    background-image: linear-gradient(135deg, var(--lightorange), var(--orange));
     color: white;
-    font-weight:bold;
-    width: 70%;
-    border-radius: 1em;
-    margin-bottom: .5em;
-    margin-top: .5em;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    padding-left: 1px;
-    padding-right: 1px;
-    overflow: scroll;
-    max-height: 1.5em;
-    min-height: 1.5em;
- 
-    display: flex;
-    justify-content: center;
-    align-content: center;
-
-
+    font-weight: 600;
+    width: 85%;
+    border-radius: 10px;
+    margin: 6px auto;
+    padding: 6px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
 }
 
-.course_element::-webkit-scrollbar {
-    display: none;
-  }
-
 #manage-button-container {
-    margin:auto;
+    margin: 0.6em auto 0.2em auto;
 }
 
 #manage-button {
-    border-radius: 5px;
-    padding: 5px;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.95em;
+    margin-bottom: 0;
 }
 
 #registration-time-container {
     margin: auto;
-    margin-bottom: 1em;
-    width: 100vh;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
+    width: 100%;
     text-align: center;
 }
 
 #registration-time-label {
-    font-weight: bold;
+    font-weight: 600;
+    color: var(--text);
 }
 
-/* credit https://www.w3schools.blog/input-type-date-remove-calendar-icon*/
 input[type="datetime-local"]::-webkit-inner-spin-button,
 input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     display: none;
@@ -156,14 +151,33 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 #registration-time {
-    pointer-events:none;
-    border-width: 2px;
-    border-radius: 1em;
-    padding: 0.25em;
-    padding-left: 0.75em;
-    margin-top: 0.5em;
+    pointer-events: none;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin-top: 0.4em;
+    background-color: #fafafa;
+    color: var(--text);
+    font-size: 0.9em;
 }
 
 #no-registration-time {
+    margin-top: 0.6em;
+    color: var(--muted);
+}
+
+.footer-credit {
+    font-size: 0.8em;
+    color: var(--muted);
     margin-top: 1em;
+    margin-bottom: 0;
+}
+
+.footer-credit a {
+    color: var(--orange);
+    text-decoration: none;
+}
+
+.footer-credit a:hover {
+    text-decoration: underline;
 }

@@ -1,29 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <script src="../scripts/index.js">  </script>
-    <link rel="stylesheet" type="text/css" href="../css/index.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="../scripts/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+  </head>
+  <body>
     <h1 class="centered">UT Course Scheduler</h1>
     <div id="dropdown-container" class="dropdown">
-        <img src="../images/menu.svg" id="dropbtn"/>
-        <div id="dropdown-menu" class="dropdown-content">
-          <div id="faq" class="dropdown-option">FAQ</div>
-          <div id="log" class="dropdown-option">Log</div>
-        </div>
+      <img src="../images/menu.svg" id="dropbtn" />
+      <div id="dropdown-menu" class="dropdown-content">
+        <div id="faq" class="dropdown-option">FAQ</div>
+        <div id="log" class="dropdown-option">Log</div>
       </div>
-    <div class = "centered sub-label" id = "scheduled-courses-title"><b>Scheduled Courses</b></div>
-    <div id="class-list-div" class = "centered" hidden> <i>No Classes Selected </i></div>
-    <div id = "class-list"></div>
-    <div id="registration-time-container" title="Go to Manage Registration to change">
-        <label for="registration-time" class = "sub-label" id = "registration-time-label"></label><br/>
-        <input type="datetime-local" id="registration-time" readonly>
-        <div id="no-registration-time" style="display: none;"><i>No registration time currently set</i></div>
+    </div>
+
+    <div id="warning-banner" class="banner banner-error" style="display: none">
+      <span class="banner-title">Heads up:</span>
+      <span id="warning-banner-text"></span>
+      <ul id="warning-banner-list"></ul>
+    </div>
+
+    <div id="info-banner" class="banner banner-info">
+      <span class="banner-title">At registration time:</span>
+      be logged into your UT account, laptop on &amp; awake, and Chrome open.
+    </div>
+
+    <div class="centered sub-label" id="scheduled-courses-title">
+      <b>Scheduled Courses</b>
+    </div>
+    <div id="class-list-div" class="centered" hidden>
+      <i>No Classes Selected</i>
+    </div>
+    <div id="class-list"></div>
+    <div
+      id="registration-time-container"
+      title="Go to Manage Registration to change"
+    >
+      <label
+        for="registration-time"
+        class="sub-label"
+        id="registration-time-label"
+      ></label
+      ><br />
+      <input type="datetime-local" id="registration-time" readonly />
+      <div id="no-registration-time" style="display: none">
+        <i>No registration time currently set</i>
+      </div>
     </div>
     <div id="manage-button-container" class="centered">
-        <button id="manage-button" class="submit-button-type"> Manage Registration </button>
+      <button id="manage-button" class="submit-button-type">
+        Manage Registration
+      </button>
     </div>
-    <p class="centered"> Created by <a target="_blank" href="https://maxweinreb.com">Max Weinreb</a> and <a target="_blank" href="https://loganvaz.github.io">Logan Vaz</a> </p>
-</body>
+    <p class="centered footer-credit">
+      Created by
+      <a target="_blank" href="https://maxweinreb.com">Max Weinreb</a>
+      and
+      <a target="_blank" href="https://loganvaz.github.io">Logan Vaz</a>
+    </p>
+  </body>
 </html>

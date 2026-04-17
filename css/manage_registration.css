@@ -1,221 +1,293 @@
-/* SOME OF STYLESHEET FOR TABLE BASED ON CHATGPT RESPONSE */
 @import "global.css";
 
+body {
+    background-color: #fafafa;
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px 32px 64px 32px;
+}
 
 h1 {
     text-align: center;
     padding-bottom: 10px;
+    margin-top: 0.5em;
+    color: var(--text);
 }
 
 #registration-info {
     margin: auto;
-    width: 50%;
+    margin-top: 1.5em;
+    width: 100%;
     text-align: center;
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: var(--shadow-md);
 }
 
-
 table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     width: 100%;
-    border-radius: 1vh;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 caption {
-    border-radius: 1vh;
-    background-image: linear-gradient(90deg, var(--orange),white,var(--orange));
+    border-radius: 10px;
+    background-image: linear-gradient(90deg, var(--orange), var(--lightorange), var(--orange));
+    padding: 2px 0;
 }
 
 #title_component {
-    margin-left: 3vh;
+    margin-left: 16px;
     position: relative;
     float: left;
-    font-weight: bolder;
-    font-size: larger;
+    font-weight: 700;
+    font-size: 1.1em;
     color: white;
     text-align: left;
+    letter-spacing: 0.02em;
 }
 
-.longhorn_image_title {
-    height: 3vh;
-    width: 50%;
-    margin: auto;
-    position: relative;
-    top: 50%;
-}
-
-.flex-box  {
+.flex-box {
     display: flex;
     align-items: center;
 }
 
 .title_component {
-    margin-top: 1vh;
-    margin-bottom: 1vh;
+    margin-top: 10px;
+    margin-bottom: 10px;
     flex-grow: 1;
     flex-basis: 0;
 }
 
 #contain_add_row_button {
-    margin-right: 3vh;
+    margin-right: 16px;
+    text-align: right;
 }
 
-/* Style for the add row button */
-.add-lock { 
-    float:right;
-    text-align: right;
-    border-radius: 1vh;
+#add-row-button {
+    float: right;
+    border-radius: 6px;
     border: none;
     color: var(--orange);
     background-color: white;
-    font-weight:bolder;
-    font-size: larger;
+    font-weight: 700;
+    font-size: 0.95em;
     cursor: pointer;
-    
+    padding: 6px 12px;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-#lock-icon {
-    background-color: transparent;
-    cursor: auto;
+#add-row-button:hover {
+    background-color: var(--paleorange);
 }
-  
-/* Style for the table cells */
+
+/* Table cells */
 td {
-    border: 1px solid #dddddd;
+    border-bottom: 1px solid var(--border);
     text-align: center;
+    padding: 10px 8px;
+    background-color: white;
 }
 
 .action-cell {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+}
+
+.action-cell input[type="image"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s ease;
+}
+
+.action-cell input[type="image"]:hover {
+    opacity: 1;
 }
 
 .priority-cell {
     background-image: url("../images/drag.svg");
-    background-size: 20px 20px;
-    background-position: left;
+    background-size: 18px 18px;
+    background-position: 10px center;
     background-repeat: no-repeat;
+    padding-left: 36px;
+    cursor: grab;
 }
 
-/* Style for the table header cells */
 th {
-    border: 1px solid #dddddd;
+    border-bottom: 2px solid var(--border);
     text-align: center;
-    padding: 8px;
+    padding: 10px 8px;
+    background-color: #f5f5f7;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
 }
 
-th:first-child {
-    border-radius: 1vh;
+tbody tr:hover td {
+    background-color: #fff8f0;
 }
 
-th:last-child {
-    border-radius: 1vh;
-}
-  
-/* Style for the table rows */
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-tr.selected_row {
+tr.selected_row td {
     background-color: #ACCEF7;
 }
 
-/* Style for the edit and submit buttons */
+.empty-hint {
+    color: var(--muted);
+    padding: 24px 12px;
+    font-style: italic;
+}
+
+/* Form buttons (popup save/cancel) */
 .form-buttons {
     background-color: var(--orange);
     color: white;
-    padding: 12px 20px;
+    padding: 10px 18px;
     border: none;
     cursor: pointer;
-    /* width: 10%; */
     width: 90px;
     margin-top: 10px;
     text-align: center;
-    border-radius: 1vh;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
 }
 
-/* Style for the disabled submit button */
+.form-buttons:hover {
+    background-color: var(--darkorange);
+}
+
 button[disabled] {
     background-color: #cccccc;
+    cursor: not-allowed;
 }
 
+/* Popup */
+#course-popup-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 10;
+}
 
-/* Style for the popup */
 #course-popup {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
-    padding: 20px;
-    border: 1px solid #cccccc;
-    width: 30%;
-    margin-top: 10px;
-    border-radius: 3vh;
+    padding: 24px 28px;
+    border: none;
+    width: 380px;
+    max-width: 90vw;
+    border-radius: 14px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    z-index: 11;
 }
 
 #course-popup h2 {
     position: relative;
     text-align: center;
-    margin: 0;
+    margin: 0 0 12px 0;
+    font-size: 1.25em;
+    color: var(--text);
 }
 
 #close-button {
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 8px;
+    right: 10px;
     width: 30px;
     height: 30px;
     border: none;
-    color: #cccccc;
-    font-size: 24px;
+    color: var(--muted);
+    font-size: 22px;
     cursor: pointer;
-    margin-right: 0.5vh;
-    margin-top: 0.5vh;
-    border-radius: 3vh;
+    border-radius: 6px;
     background-color: transparent;
+    line-height: 1;
 }
 
-/* Style for the labels in the popup */
+#close-button:hover {
+    background-color: #f1f1f3;
+    color: var(--text);
+}
+
 #course-popup label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    font-size: 0.9em;
+    color: var(--muted);
 }
 
-/* Style for the inputs in the popup */
 #course-popup input[type="text"] {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #cccccc;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
     box-sizing: border-box;
-    margin-bottom: 2vh;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    font-size: 0.95em;
+    transition: border-color 0.15s ease;
 }
+
+#course-popup input[type="text"]:focus {
+    outline: none;
+    border-color: var(--orange);
+}
+
 #course-popup input::placeholder {
-    color: lightgrey;
+    color: #bdbdbd;
 }
 
 #checkbox-container {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+#checkbox-container label {
+    margin: 0;
+    font-size: 0.95em;
+    color: var(--text);
 }
 
 #waitlist-input {
     width: auto;
-    margin-top: 0;
+    margin: 0;
     accent-color: var(--orange);
 }
+
 .input-error {
-    color: red;
-    font-size: small;
+    color: var(--error-text);
+    font-size: 0.8em;
     display: none;
-    margin-bottom: 2vh;
+    margin-bottom: 10px;
 }
+
 #course-popup-buttons {
     text-align: center;
+    margin-top: 18px;
 }
 
 #course-popup-buttons button {
-    margin: 0.5vh;
+    margin: 0 6px;
     border: 2px solid var(--orange);
 }
 
@@ -224,7 +296,11 @@ button[disabled] {
     color: var(--orange);
 }
 
-  
+#cancel-button:hover {
+    background-color: var(--paleorange);
+    color: var(--darkorange);
+}
+
 .dragging {
     background: #fff;
     border-top: 1px solid #ccc;
@@ -233,42 +309,84 @@ button[disabled] {
     background-color: #ACCEF7;
 }
 
- #registration-time-section {
+#registration-time-section {
     text-align: center;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--orange);
-    /* border-image: linear-gradient(to right, white, white, var(--orange), white, white) 20%; */
-    border-radius: 2vh;
-    width: 50%;
-    margin: auto;
-    margin-top: 10vh;
-    color: black;
-    background-image: linear-gradient(75deg, var(--orange),white, white, white, white,white,var(--orange));
-} 
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    margin: 32px auto 0 auto;
+    color: var(--text);
+    background-color: white;
+    box-shadow: var(--shadow-md);
+    padding: 20px 24px;
+    box-sizing: border-box;
+}
 
 #registration-time-title {
-    font-size: 1.6em;
+    font-size: 1.4em;
+    margin: 0 0 16px 0;
+    color: var(--text);
+}
+
+.time-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
 }
 
 .registration-time-label {
-    font-size: 1.25em;
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--text);
 }
 
 .registration-time-input {
-    border-radius: 1vh;
-    padding: 2px;
-    border: 1px solid black;
-    margin-left: 0.5em;
-    margin-bottom: 1em;
+    border-radius: 8px;
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    font-size: 0.95em;
+    background-color: white;
+    transition: border-color 0.15s ease;
 }
 
-#update-time:active {
-    background-color: var(--darkorange);
+.registration-time-input:focus {
+    outline: none;
+    border-color: var(--orange);
 }
 
-#disclaimer {
-    /* center */
-    margin-top: 1em;
+.time-hint {
+    color: var(--muted);
+    font-size: 0.85em;
+    margin: 8px 0 6px 0;
+}
+
+#courses-save-status,
+#time-save-status {
+    margin-top: 10px;
     text-align: center;
+}
+
+.faq-link {
+    text-align: center;
+    margin-top: 2em;
+    color: var(--muted);
+    font-size: 0.9em;
+}
+
+.faq-link a {
+    color: var(--orange);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.faq-link a:hover {
+    text-decoration: underline;
+    color: var(--darkorange);
+}
+
+.save-status {
+    font-size: 0.85em;
 }

@@ -1,94 +1,157 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <script src="../scripts/manage_registration.js"></script>
-        <script src="../scripts/manage_registration_table.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/manage_registration.css">
-    </head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
     <title>Manage Registration</title>
-    <h1>Manage Registration</h1>
-    <div id="registration-info">
-        <!-- Table to hold the course information -->
+    <script src="../scripts/manage_registration.js"></script>
+    <script src="../scripts/manage_registration_table.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../css/manage_registration.css"
+    />
+  </head>
+  <body>
+    <div class="page-container">
+      <h1>Manage Registration</h1>
+
+      <div
+        id="warning-banner"
+        class="banner banner-error"
+        style="display: none"
+      >
+        <span class="banner-title">Heads up:</span>
+        <span id="warning-banner-text"></span>
+        <ul id="warning-banner-list"></ul>
+      </div>
+
+      <div id="info-banner" class="banner banner-info">
+        <span class="banner-title">At your registration time you must:</span>
+        be logged into your UT account (check if you can access Canvas without
+        logging in), have your laptop on and awake, and have Chrome open.
+        Otherwise the extension cannot register for classes.
+      </div>
+
+      <div id="registration-info">
         <table>
-            <caption class = "course-table-caption">
-                <div class = "flex-box">
-                    <div id = "title_component" class = "title_component" >Scheduled Courses</div>
-                    <div class = "title_component" id = "contain_add_row_button">
-                        <button type="button" id="add-row-button" class = "add-lock" style="display:none;">Add Class</button>
-                        <img id="lock-icon" src="../images/lock.svg" class="add-lock"/>
-                    </div>
-                </div>
-            </caption>
+          <caption class="course-table-caption">
+            <div class="flex-box">
+              <div id="title_component" class="title_component">
+                Scheduled Courses
+              </div>
+              <div class="title_component" id="contain_add_row_button">
+                <button type="button" id="add-row-button">+ Add Class</button>
+              </div>
+            </div>
+          </caption>
         </table>
-        <table id="course-table" >
-            <!-- Table header -->
-            <thead id = "table-header">
-                <tr>
-                    <th title = "The order the classes will be registered in">Registration Order</th>
-                    <th>Course name</th>
-                    <th>Course code</th>
-                    <th>Waitlist</th>
-                    <th title = "Courses to register for if you are unable to get into the course specified by course code">Alternate Courses</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="course-table-body">
-            </tbody>
+        <table id="course-table">
+          <thead id="table-header">
+            <tr>
+              <th title="The order the classes will be registered in">
+                Registration Order
+              </th>
+              <th>Course name</th>
+              <th>Course code</th>
+              <th>Waitlist</th>
+              <th
+                title="Courses to register for if you are unable to get into the course specified by course code"
+              >
+                Alternate Courses
+              </th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="course-table-body"></tbody>
         </table>
-        <!-- Edit and submit buttons -->
-        <button type="button" id="edit-button" class="form-buttons">Edit</button>
-        <button type="button" id="submit-button" class="form-buttons" disabled>Submit</button>
-       
-    </div>
-    <!-- Popup to add or edit course information -->
-    <div id="course-popup" style="display:none;">
-        <h2>Add Class</h2>
-        <button id="close-button">x</button>
+        <div id="courses-empty-hint" class="empty-hint" style="display: none">
+          No classes yet. Click <b>+ Add Class</b> to get started.
+        </div>
+        <div
+          id="courses-save-status"
+          class="save-status"
+          aria-live="polite"
+        ></div>
+      </div>
 
+      <!-- Popup to add or edit course information -->
+      <div id="course-popup-backdrop" style="display: none"></div>
+      <div id="course-popup" style="display: none">
+        <h2 id="course-popup-title">Add Class</h2>
+        <button id="close-button" aria-label="Close">×</button>
 
-        <!-- Course Inputs -->
         <label for="course-name-input">Course name (optional):</label>
-        <input type="text" id="course-name-input" placeholder="OS">
+        <input type="text" id="course-name-input" placeholder="OS" />
 
         <label for="course-code-input">Course code:</label>
-        <input type="text" id="course-code-input" placeholder="96024">
-        <div id = "course-code-error" class = "input-error">Error: course code must be a 5 digit number</div>
+        <input type="text" id="course-code-input" placeholder="96024" />
+        <div id="course-code-error" class="input-error">
+          Error: course code must be a 5 digit number
+        </div>
 
-        <label for="alternate-courses-input">Alternate courses (optional):</label>
-        <input type="text" id="alternate-courses-input" placeholder="86750, 66005, 00110...">
-        <div id = "alternate-courses-error" class = "input-error">Error: each course code must be a 5 digit number seperated by commas (ex: 12345, 54321) </div>
-
+        <label for="alternate-courses-input"
+          >Alternate courses (optional):</label
+        >
+        <input
+          type="text"
+          id="alternate-courses-input"
+          placeholder="86750, 66005, 00110..."
+        />
+        <div id="alternate-courses-error" class="input-error">
+          Error: each course code must be a 5 digit number separated by commas
+          (ex: 12345, 54321)
+        </div>
 
         <div id="checkbox-container">
-            <label for="waitlist-input">Waitlist:</label>
-            <input type="checkbox" id="waitlist-input">
+          <label for="waitlist-input">Waitlist:</label>
+          <input type="checkbox" id="waitlist-input" />
         </div>
-        
+
         <div id="course-popup-buttons">
-            <button type="button" id="save-button" class="form-buttons">Save</button>
-            <button type="button" id="cancel-button" class="form-buttons">Cancel</button>
+          <button type="button" id="save-button" class="form-buttons">
+            Save
+          </button>
+          <button type="button" id="cancel-button" class="form-buttons">
+            Cancel
+          </button>
         </div>
-        <input type="hidden" id="add-edit" value="add" class="form-buttons">
-    </div>
-    <br/>
-    <div id="registration-time-section">
+        <input type="hidden" id="add-edit" value="add" />
+      </div>
+
+      <div id="registration-time-section">
         <h2 id="registration-time-title">Registration Time</h2>
-        <label for="registration-time" id="registration-time-label" class="registration-time-label">Enter your registration time (in current timezone):</label>
-        <input type="datetime-local" id="registration-time" class="registration-time-input" min="">
-        <br />
-        <label for="registration-semester" id="registration-semester-label" class="registration-time-label">Enter your registration semester:</label>                
-        <select id="registration-semester" class="registration-time-input">
+        <div class="time-row">
+          <label for="registration-time" class="registration-time-label"
+            >Registration time (in your current timezone):</label
+          >
+          <input
+            type="datetime-local"
+            id="registration-time"
+            class="registration-time-input"
+            min=""
+          />
+        </div>
+        <div class="time-row">
+          <label for="registration-semester" class="registration-time-label"
+            >Registration semester:</label
+          >
+          <select id="registration-semester" class="registration-time-input">
             <option value="Fall">Fall</option>
             <option value="Spring">Spring</option>
             <option value="Summer">Summer</option>
-        </select>
-        <h5>P.S. Please don't get this wrong!</h5>
-        <button id="update-time" class="submit-button-type">Update Registration Time</button>
+          </select>
+        </div>
+        <div class="time-hint">
+          Please double-check this — getting the wrong time or semester will
+          cause registration to fail.
+        </div>
+        <div id="time-save-status" class="save-status" aria-live="polite"></div>
+      </div>
+
+      <p class="faq-link">
+        Questions? Visit our
+        <a href="../htmls/faq.html" target="_blank">FAQ</a>.
+      </p>
     </div>
-    <div id="disclaimer">
-        <b>Important:</b>
-        You must have Chrome open and be logged into your UT account</br>
-        at your registration time for automatic registration to work
-</body>
+  </body>
 </html>

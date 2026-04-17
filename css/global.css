@@ -2,14 +2,101 @@
     --orange: rgb(191, 87, 0);
     --lightorange: rgb(200, 131, 75);
     --darkorange: rgb(158, 71, 0);
+    --paleorange: rgb(253, 240, 228);
+    --warning-bg: rgb(255, 243, 224);
+    --warning-border: rgb(229, 128, 0);
+    --warning-text: rgb(120, 53, 0);
+    --error-bg: rgb(253, 229, 225);
+    --error-border: rgb(200, 45, 30);
+    --error-text: rgb(140, 25, 15);
+    --success: rgb(34, 120, 60);
+    --muted: rgb(110, 110, 115);
+    --text: rgb(35, 35, 40);
+    --border: rgb(220, 220, 225);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+    color: var(--text);
 }
 
 .submit-button-type {
     margin-bottom: 0.8em;
-    border-radius: 1vh;
+    border-radius: 8px;
     background-color: var(--orange);
     color: white;
     border-width: 0px;
-    padding: 1vh;
+    padding: 0.6em 1em;
     cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+
+.submit-button-type:hover {
+    background-color: var(--darkorange);
+}
+
+/* Shared banner styles */
+.banner {
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: 8px auto;
+    font-size: 0.95em;
+    line-height: 1.4;
+    box-shadow: var(--shadow-sm);
+}
+
+.banner-info {
+    background-color: var(--paleorange);
+    border: 1px solid var(--lightorange);
+    color: var(--warning-text);
+}
+
+.banner-warning {
+    background-color: var(--warning-bg);
+    border: 1px solid var(--warning-border);
+    color: var(--warning-text);
+}
+
+.banner-error {
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    color: var(--error-text);
+}
+
+.banner-title {
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+.banner ul {
+    margin: 4px 0 0 0;
+    padding-left: 20px;
+}
+
+.banner li {
+    margin: 2px 0;
+}
+
+/* Save status indicator */
+.save-status {
+    font-size: 0.85em;
+    color: var(--muted);
+    min-height: 1.2em;
+    transition: color 0.2s ease;
+}
+
+.save-status.saving {
+    color: var(--muted);
+}
+
+.save-status.saved {
+    color: var(--success);
+}
+
+.save-status.error {
+    color: var(--error-text);
+    font-weight: 600;
 }

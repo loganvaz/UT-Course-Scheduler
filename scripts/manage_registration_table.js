@@ -26,11 +26,11 @@ document.addEventListener('DOMContentLoaded', function()  {
     chrome.storage.sync.get(["saved_registration"], function(data) {
         if (data.saved_registration) {
             data.saved_registration.forEach((instance) => {
-                add_row(instance["Course name"], instance["Course code"], instance["Waitlist"], instance["Alternate Courses"]);
+                add_row(instance["Course name"], instance["Course code"], instance["Waitlist"], instance["Alternate Courses"], true);
             })
         }
+        if (typeof update_warnings === "function") update_warnings();
     });
-    document.getElementById("course-table").style.pointerEvents = "none";
 });
 
 function save_class(){
@@ -44,7 +44,7 @@ function save_class(){
     }
 }
 
-function add_row(courseName, courseCode, waitlist, alternateCourses) {
+function add_row(courseName, courseCode, waitlist, alternateCourses, skip_save) {
     //add row to course table
     const courseTableBody = document.getElementById("course-table-body");
     var rowVal = document.getElementById("add-edit").value;
@@ -61,7 +61,8 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
     var courseCodeTable = row.insertCell(course_code_idx);
     courseCodeTable.innerHTML = courseCode;
     var waitlistTable = row.insertCell(course_waitlist_idx);
-    waitlistTable.innerHTML = waitlist ? "yes" : "no";
+    const isWaitlisted = waitlist === true || waitlist === "yes" || waitlist === "true";
+    waitlistTable.innerHTML = isWaitlisted ? "yes" : "no";
     var alternateCoursesTable = row.insertCell(alternate_course_idx);
     alternateCoursesTable.innerHTML = alternateCourses;
     var actionsTable = row.insertCell(action_idx);
@@ -83,12 +84,15 @@ function add_row(courseName, courseCode, waitlist, alternateCourses) {
     deleteButton.src = "../images/trash.svg";
     deleteButton.onclick = function(e) {
         document.getElementById("course-table").deleteRow(e.target.parentNode.parentNode.parentNode.rowIndex);
+        reset_priority();
+        if (typeof autosave_courses === "function") autosave_courses();
     };
     flex_div.appendChild(deleteButton);
 
     make_draggable(row);
     clear_popup();
     reset_priority();
+    if (!skip_save && typeof autosave_courses === "function") autosave_courses();
 }
 
 function validate_input(){
@@ -119,8 +123,11 @@ function edit_row(cell){
     document.getElementById("waitlist-input").checked = row.cells[course_waitlist_idx].innerText == "yes";
     document.getElementById("alternate-courses-input").value = row.cells[alternate_course_idx].innerText;
     document.getElementById("add-edit").value = row.rowIndex-1;
-    document.getElementById("registration-info").style.pointerEvents = "none";
+    const popupTitle = document.getElementById("course-popup-title");
+    if (popupTitle) popupTitle.innerText = "Edit Class";
     document.getElementById("course-popup").style.display = "block";
+    const backdrop = document.getElementById("course-popup-backdrop");
+    if (backdrop) backdrop.style.display = "block";
 }
 
 function clear_popup(){
@@ -133,13 +140,14 @@ function clear_popup(){
     for(let e of selected_row){
         e.classList.remove("selected_row");
     }
-    document.getElementById("registration-info").style.removeProperty("pointer-events");
     [].slice.call(document.getElementsByClassName("input-error")).forEach((error_text) => {
         error_text.style.display = "none";
         document.getElementById("course-code-input").style.marginBottom = "2vh";
         document.getElementById("alternate-courses-input").style.marginBottom = "2vh";
     });
     document.getElementById("course-popup").style.display = "none";
+    const backdrop = document.getElementById("course-popup-backdrop");
+    if (backdrop) backdrop.style.display = "none";
 }
 
 function make_draggable(row_element) {
@@ -227,6 +235,9 @@ function mouseUpHandler() {
     drag_started = false;
 
     reset_priority();
+    if (dragging_row_idx !== end_row_idx && typeof autosave_courses === "function") {
+        autosave_courses();
+    }
 };
 
 function reset_priority() {
